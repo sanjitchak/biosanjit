@@ -20,6 +20,7 @@
       --line: #dcd1bf;
       --green: #294735;
       --rust: #943e29;
+      --whatsapp: #25d366;
       --display: "Instrument Serif", Georgia, serif;
     }
     * { box-sizing: border-box; }
@@ -43,8 +44,10 @@
     h2 { font-size: clamp(2.7rem, 6vw, 4.7rem); }
     .intro { max-width: 37ch; font-size: clamp(1.05rem, 2vw, 1.25rem); }
     .actions { gap: 12px 22px; margin-top: 26px; }
-    .button { display: inline-flex; align-items: center; gap: 12px; padding: 12px 19px; border-radius: 5px; background: var(--green); color: #fff; font-weight: 700; text-decoration: none; }
-    .button:hover { background: #365d46; }
+    .button { display: inline-flex; align-items: center; gap: 12px; padding: 12px 19px; border-radius: 5px; background: var(--whatsapp); color: #10291b; font-weight: 700; text-decoration: none; }
+    .button:hover { background: #20c45e; }
+    .button.download { color: var(--green); background: transparent; border: 1px solid var(--green); }
+    .button.download:hover { background: #efe3d1; }
     figure { margin: 0; }
     .hero img { aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 42%; border-radius: 48% 48% 4px 4px / 33% 33% 4px 4px; }
     .facts { margin: 0; padding: 17px 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; border-block: 1px solid var(--line); }
@@ -61,8 +64,7 @@
     .gallery img { aspect-ratio: 4 / 5; object-fit: cover; object-position: center 36%; border-radius: 5px; }
     .contact { background: var(--green); color: #fcf8ef; text-align: center; padding: clamp(34px, 7vw, 78px) 22px; border-radius: 6px; }
     .contact p { max-width: 54ch; margin: 16px auto 0; }
-    .contact .button { margin-top: 22px; color: var(--green); background: var(--paper); }
-    .contact .button:hover { background: #efe3d1; }
+    .contact .button { margin-top: 22px; }
     .contact a:focus-visible { outline-color: var(--paper); }
     footer { justify-content: space-between; gap: 10px 24px; padding-block: 24px; color: var(--muted); font-size: .875rem; }
     @media (max-width: 680px) {
@@ -94,6 +96,7 @@
         <p class="intro">I run my own digital marketing firm from my home, in my own flat in Delhi. Away from work, I’m happiest lifting weights or heading for the mountains.</p>
         <div class="actions">
           <a class="button" href="https://wa.me/917278135942?text=Hi%20Sanjit%21%20I%20came%20across%20your%20bio%20and%20would%20love%20to%20say%20hello.">Say hello on WhatsApp <span aria-hidden="true">↗</span></a>
+          <a class="button download" href="sanjit-chakrabarti-bio.pdf" download>Download full bio (PDF) <span aria-hidden="true">↓</span></a>
         </div>
       </div>
       <figure><img src="photos/sanjit-at-work.jpg" alt="Sanjit working on his laptop at a café" fetchpriority="high"></figure>
