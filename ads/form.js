@@ -15,6 +15,7 @@ form.addEventListener('submit', async (event) => {
   requestId ||= crypto.randomUUID();
   const payload = new URLSearchParams(new FormData(form));
   payload.set('requestId', requestId);
+  payload.set('consent', 'yes');
   try {
     const response = await fetch(leadEndpoint, {
       method: 'POST',

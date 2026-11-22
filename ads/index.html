@@ -82,7 +82,6 @@
     #intro-form { padding: clamp(18px, 4vw, 32px); background: #fffdfa; border: 1px solid var(--line); border-radius: 8px; }
     #intro-form label { display: block; font-weight: 600; }
     #intro-form input:not([type=checkbox]), #intro-form textarea { display: block; width: 100%; padding: 10px; border: 1px solid #928672; border-radius: 4px; margin: 5px 0 14px; font: inherit; }
-    #intro-form .consent { font-size: .9rem; font-weight: 500; }
     #intro-form p { font-size: .875rem; margin: 10px 0; }
     #intro-form button { border: 0; font: inherit; font-weight: 700; cursor: pointer; }
     #intro-form button:disabled { opacity: .55; cursor: default; }
@@ -160,15 +159,13 @@
         <p>I’d like to meet a well-educated woman who’s open to settling in Delhi.</p>
         <p>Send me a short introduction. After your form is received, you’ll see a link to message me directly on WhatsApp.</p>
       </div>
-      <form id="intro-form" aria-describedby="privacy">
-        <label for="name">Your name</label>
-        <input id="name" name="name" autocomplete="name" maxlength="100" required>
+      <form id="intro-form">
+        <label for="intro-name">Your name</label>
+        <input id="intro-name" name="name" autocomplete="name" maxlength="100" required>
         <label for="phone">Your WhatsApp number</label>
         <input id="phone" name="phone" autocomplete="tel" inputmode="tel" type="tel" pattern="[+0-9 \(\) \-]{7,25}" maxlength="25" required>
         <label for="message">A little about you <small>(optional)</small></label>
         <textarea id="message" name="message" rows="4" maxlength="600"></textarea>
-        <label class="consent"><input type="checkbox" name="consent" value="yes" required> I agree that Sanjit may use these details to contact me about my introduction.</label>
-        <p id="privacy">Your introduction is stored in Sanjit’s Google Sheet for follow-up. Please share only what you’re comfortable sending.</p>
         <button class="button" type="submit" disabled>Send introduction</button>
         <p id="form-status" role="status">Online introductions are currently unavailable. You can reach Sanjit on WhatsApp.</p>
       </form>
