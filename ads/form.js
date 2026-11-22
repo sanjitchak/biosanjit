@@ -12,22 +12,26 @@ form.addEventListener('submit', async (event) => {
   if (!leadEndpoint || submit.disabled) return;
   submit.disabled = true;
   statusLine.textContent = 'Sending your introduction…';
-  requestId ||= crypto.randomUUID();
-  const payload = new URLSearchParams(new FormData(form));
-  payload.set('requestId', requestId);
-  payload.set('consent', 'yes');
   try {
+    requestId ||= crypto.randomUUID();
+    const payload = new URLSearchParams(new FormData(form));
+    payload.set('requestId', requestId);
+    payload.set('consent', 'yes');
     const response = await fetch(leadEndpoint, {
       method: 'POST',
       body: payload,
       credentials: 'omit',
-      signal: AbortSignal.timeout(15000),
+      signal: AbortSignal.timeout(45000),
     });
     const result = await response.json();
     if (!response.ok || result.ok !== true) throw new Error('Submission not confirmed');
-    sessionStorage.setItem('bio-introduction-received', 'yes');
-    location.assign('/ads/thank-you/');
-  } catch {
+    try {
+      sessionStorage.setItem('bio-introduction-received', 'yes');
+    } finally {
+      location.assign('/ads/thank-you/');
+    }
+  } catch (error) {
+    console.warn('Introduction submission could not be confirmed:', error.name, error.message);
     statusLine.textContent = 'We couldn’t confirm your introduction. Try again or contact Sanjit on WhatsApp.';
     submit.disabled = false;
   }
