@@ -105,6 +105,30 @@
     if (sessionStorage.getItem('bio-introduction-received') === 'yes') {
       document.getElementById('receipt').textContent = 'Your introduction was received. If you’d like to say hello directly, you can message Sanjit on WhatsApp.';
       sessionStorage.removeItem('bio-introduction-received');
+
+      // Send one Lead for a confirmed submission, without sharing form fields.
+      const pixelId = '1783700199409062';
+      const pixel = function (...args) {
+        if (pixel.callMethod) {
+          pixel.callMethod(...args);
+        } else {
+          pixel.queue.push(args);
+        }
+      };
+      pixel.queue = [];
+      pixel.push = pixel;
+      pixel.loaded = true;
+      pixel.version = '2.0';
+      window.fbq = window._fbq = pixel;
+      pixel('set', 'autoConfig', false, pixelId);
+      pixel('init', pixelId);
+      pixel('trackSingle', pixelId, 'Lead');
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+      script.referrerPolicy = 'no-referrer';
+      document.head.append(script);
     }
   </script>
 </body>
