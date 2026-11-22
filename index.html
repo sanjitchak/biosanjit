@@ -59,6 +59,8 @@
     .story h3 { margin: 0 0 4px; font-size: 1.05rem; }
     .story p { margin: 0 0 22px; color: var(--muted); max-width: 59ch; }
     .story p:last-child { margin-bottom: 0; }
+    .family-photo { width: min(100%, 440px); }
+    .family-photo img { height: auto; border-radius: 5px; }
     .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(8px, 2vw, 22px); margin-top: 26px; }
     .gallery a { display: block; }
     .gallery img { aspect-ratio: 4 / 5; object-fit: cover; object-position: center 36%; border-radius: 5px; }
@@ -84,6 +86,7 @@
     <a class="brand" href="#top">Sanjit Chakrabarti</a>
     <nav aria-label="On this page">
       <a href="#about">About me</a>
+      <a href="#family">Family</a>
       <a href="#photos">Photos</a>
       <a href="#contact">Say hello</a>
     </nav>
@@ -114,14 +117,22 @@
       <div>
         <h3>Work and education</h3>
         <p>I studied computer science engineering at SRSIT in Bangalore under Visvesvaraya Technological University (VTU). I went to Salwan Public School in Mayur Vihar and KCMS in Kalyani. After college, I started <a href="https://growonlinetoday.com">GrowOnlineToday</a>, my digital marketing and business growth consultancy. My annual income is ₹15–20 lakh.</p>
-        <h3>My family</h3>
-        <p>I come from a nuclear Bengali family with roots in Naihati, West Bengal. My father has a corporate job in Malaysia, my mother is a homemaker, and my sister works in bioinformatics at a company in Bangalore. I live on my own in Delhi and speak Bengali, Hindi, and English.</p>
         <h3>Outside work</h3>
         <p>I enjoy trekking, photography, and weight training. I sometimes volunteer with YFS, an NGO. I’m non-vegetarian and enjoy Bengali, South Indian, and Chinese food. I don’t drink or smoke.</p>
         <p>I read business and personal development books, including <cite>Pitch Anything</cite> and <cite>Never Split the Difference</cite>. I usually dress casually and enjoy trips to the mountains or the beach.</p>
         <h3>Marriage and horoscope details</h3>
-        <p>I’ve never been married. I was born in Sonipat, Haryana, at 4:32 p.m. My gotra is Kashyap, my rashi is Dhanu, my nakshatra is Moola, and my gon is Debari (Rakshas). I’m non-Manglik. A horoscope match is optional for me.</p>
+        <p>I’ve never been married. I was born in Sonipat, Haryana, at 4:32 p.m. My gotra is Kashyap, my rashi is Dhanu, my nakshatra is Moola, and my gon is Debari (Rakshas). A horoscope match is optional for me.</p>
       </div>
+    </section>
+
+    <section class="section story" id="family" aria-labelledby="family-title">
+      <div>
+        <h2 id="family-title">My family</h2>
+        <p>I come from a nuclear Bengali family with roots in Naihati, West Bengal. My father has a corporate job in Malaysia, my mother is a homemaker, and my sister works in bioinformatics at a company in Bangalore. I live on my own in Delhi and speak Bengali, Hindi, and English.</p>
+      </div>
+      <figure class="family-photo">
+        <img src="photos/family-portrait.jpg" alt="Sanjit with his family in a group portrait" loading="lazy">
+      </figure>
     </section>
 
     <section class="section" id="photos" aria-labelledby="photos-title">
