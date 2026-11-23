@@ -266,6 +266,8 @@
       box-shadow: var(--shadow-card);
       will-change: transform, opacity;
       touch-action: pan-y;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
     }
 
     /* Background duplicate card peeking subtly behind active card */
@@ -312,8 +314,7 @@
 
     /* Photo container inside card */
     .card-photo-stage {
-      position: absolute;
-      inset: 0;
+      position: relative;
       background: linear-gradient(160deg, #272b38 0%, #14161e 100%);
     }
 
@@ -447,51 +448,18 @@
       white-space: nowrap;
     }
 
-    /* Bottom gradient scrim and profile info overlay */
-    .card-bottom-scrim {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 72px 16px 16px;
-      background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.94) 0%,
-        rgba(0, 0, 0, 0.72) 48%,
-        rgba(0, 0, 0, 0.22) 80%,
-        rgba(0, 0, 0, 0) 100%
-      );
-      color: #FFFFFF;
-      z-index: 5;
-      pointer-events: none;
-    }
-
-    .card-info-row {
+    .card-caption {
+      padding: 9px 14px 11px;
+      background: var(--surface-app);
+      color: var(--text-primary);
       display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .card-info-main {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .active-badge {
-      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      margin-bottom: 7px;
-      border-radius: 999px;
-      background: rgba(24, 26, 32, 0.62);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      font-size: 11.5px;
-      font-weight: 600;
-      color: #F3F4F6;
+      justify-content: space-between;
+    }
+
+    .card-caption-location {
+      font-size: 13px;
+      color: var(--text-secondary);
     }
 
     .active-dot {
@@ -515,7 +483,6 @@
       font-weight: 800;
       letter-spacing: -0.025em;
       line-height: 1.08;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
     }
 
     .card-age {
@@ -532,70 +499,15 @@
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.28));
     }
 
-    .card-meta-list {
-      display: flex;
-      flex-direction: column;
-      gap: 3.5px;
-      margin-bottom: 10px;
-    }
-
-    .card-meta-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13.5px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.92);
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
-    }
-
-    .card-meta-item svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-      opacity: 0.9;
-    }
-
-    .card-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .card-pill {
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.16);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      font-size: 11.5px;
-      font-weight: 600;
-      color: #FFFFFF;
-    }
-
-    .card-caption-snippet {
-      font-size: 13.5px;
-      line-height: 1.45;
-      color: rgba(255, 255, 255, 0.94);
-      margin-bottom: 8px;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
     /* Info Up-Arrow Button on Bottom Right of Card */
     .info-open-btn {
       pointer-events: auto;
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      border: 1.5px solid rgba(255, 255, 255, 0.85);
-      background: rgba(20, 22, 29, 0.52);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      color: #FFFFFF;
+      border: 1px solid var(--border-light);
+      background: var(--surface-subtle);
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1715,12 +1627,6 @@
          ======================================================================== */
       function buildCardMarkup(isInteractive) {
         const photos = PROFILE_CONFIG.photos;
-        const pillsPreview = PROFILE_CONFIG.interests.slice(0, 4);
-
-        const barsHtml = photos
-          .map((_, idx) => `<div class="story-bar ${idx === 0 ? "is-active" : ""}" data-bar-index="${idx}"></div>`)
-          .join("");
-
         const photosHtml = photos
           .map(
             (photo, idx) => `
@@ -1759,42 +1665,17 @@
             ${photosHtml}
           </div>
 
-          <div class="card-top-scrim"></div>
-          <div class="story-bars">${barsHtml}</div>
           ${stampsHtml}
 
-          <div class="card-bottom-scrim">
-            <div class="card-info-row">
-              <div class="card-info-main">
-                <div class="active-badge">
-                  <span class="active-dot"></span>
-                  <span>${escapeHtml(PROFILE_CONFIG.activeStatus)}</span>
-                </div>
-
-                <div class="card-name-line">
-                  <span class="card-name">${escapeHtml(PROFILE_CONFIG.name)}</span>
-                  <span class="card-age">${escapeHtml(PROFILE_CONFIG.age)}</span>
-                  ${PROFILE_CONFIG.verified ? VERIFIED_BADGE_SVG : ""}
-                </div>
-
-                <div class="card-dynamic-info" data-dynamic-info>
-                  <div class="card-meta-list">
-                    <div class="card-meta-item">${ICON_BRIEFCASE}<span>${escapeHtml(PROFILE_CONFIG.jobTitle)}</span></div>
-                    <div class="card-meta-item">${ICON_HOME}<span>${escapeHtml(PROFILE_CONFIG.location)}</span></div>
-                    <div class="card-meta-item">${ICON_PIN}<span>${escapeHtml(PROFILE_CONFIG.distance)}</span></div>
-                  </div>
-                  <div class="card-pills">
-                    ${pillsPreview.map((tag) => `<span class="card-pill">${escapeHtml(tag)}</span>`).join("")}
-                  </div>
-                </div>
+          <div class="card-caption">
+            <div>
+              <div class="card-name-line">
+                <span class="card-name">${escapeHtml(PROFILE_CONFIG.name)}</span>
+                <span class="card-age">${escapeHtml(PROFILE_CONFIG.age)}</span>
               </div>
-
-              ${
-                isInteractive
-                  ? `<button type="button" class="info-open-btn" data-open-profile aria-label="View Full Profile">${ICON_UP_ARROW}</button>`
-                  : `<div class="info-open-btn" aria-hidden="true">${ICON_UP_ARROW}</div>`
-              }
+              <p class="card-caption-location">${escapeHtml(PROFILE_CONFIG.activeStatus)}</p>
             </div>
+            ${isInteractive ? `<button type="button" class="info-open-btn" data-open-profile aria-label="View Full Profile">${ICON_UP_ARROW}</button>` : ""}
           </div>
         `;
       }
@@ -1841,55 +1722,6 @@
       /* ========================================================================
          PHOTO CAROUSEL & STORY PROGRESS SYNC (CARD + FULL PROFILE SHEET)
          ======================================================================== */
-      function renderDynamicCardSlide(index) {
-        const slot = el.activeCard.querySelector("[data-dynamic-info]");
-        if (!slot) return;
-
-        // Photo 0: Summary details + Interest pills
-        if (index === 0) {
-          const pillsPreview = PROFILE_CONFIG.interests.slice(0, 4);
-          slot.innerHTML = `
-            <div class="card-meta-list">
-              <div class="card-meta-item">${ICON_BRIEFCASE}<span>${escapeHtml(PROFILE_CONFIG.jobTitle)}</span></div>
-              <div class="card-meta-item">${ICON_HOME}<span>${escapeHtml(PROFILE_CONFIG.location)}</span></div>
-              <div class="card-meta-item">${ICON_PIN}<span>${escapeHtml(PROFILE_CONFIG.distance)}</span></div>
-            </div>
-            <div class="card-pills">
-              ${pillsPreview.map((tag) => `<span class="card-pill">${escapeHtml(tag)}</span>`).join("")}
-            </div>
-          `;
-          return;
-        }
-
-        // Photo 1: Bio preview
-        if (index === 1) {
-          slot.innerHTML = `
-            <p class="card-caption-snippet">${escapeHtml(PROFILE_CONFIG.bio)}</p>
-          `;
-          return;
-        }
-
-        // Photo 2: Interests showcase
-        if (index === 2) {
-          slot.innerHTML = `
-            <div class="card-meta-item" style="margin-bottom: 8px; opacity: 0.85;"><span>Interests</span></div>
-            <div class="card-pills">
-              ${PROFILE_CONFIG.interests.slice(0, 6).map((tag) => `<span class="card-pill">${escapeHtml(tag)}</span>`).join("")}
-            </div>
-          `;
-          return;
-        }
-
-        // Photo 3+: Prompt preview
-        const prompt = PROFILE_CONFIG.prompts[0];
-        slot.innerHTML = `
-          <div class="card-meta-item" style="margin-bottom: 4px; color: #FF9EB5; font-weight: 700;">
-            <span>${escapeHtml(prompt ? prompt.question : "Looking for")}</span>
-          </div>
-          <p class="card-caption-snippet">${escapeHtml(prompt ? prompt.answer : PROFILE_CONFIG.lookingFor)}</p>
-        `;
-      }
-
       function setPhotoIndex(newIndex) {
         const total = PROFILE_CONFIG.photos.length;
         if (total === 0) return;
@@ -1915,7 +1747,6 @@
           });
         });
 
-        renderDynamicCardSlide(state.photoIndex);
       }
 
       function flashTapArrow(side) {
