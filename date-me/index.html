@@ -227,6 +227,30 @@
       justify-content: center;
     }
 
+    .profile-feed {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    .profile-feed .deck-wrapper {
+      height: min(62dvh, 490px);
+      min-height: 310px;
+    }
+
+    .profile-feed .sheet-body { padding-bottom: 20px; }
+
+    .profile-detail-photo {
+      display: block;
+      width: 100%;
+      max-height: 68dvh;
+      object-fit: cover;
+      border-radius: var(--radius-card);
+      margin: 0 0 22px;
+      background: var(--surface-subtle);
+    }
+
     .card-stack {
       position: relative;
       width: 100%;
@@ -241,7 +265,7 @@
       background: #14161D;
       box-shadow: var(--shadow-card);
       will-change: transform, opacity;
-      touch-action: none;
+      touch-action: pan-y;
     }
 
     /* Background duplicate card peeking subtly behind active card */
@@ -1291,15 +1315,18 @@
       <!-- ====================================================================
            MAIN SWIPEABLE PROFILE CARD DECK
            ==================================================================== -->
-      <section class="deck-wrapper" aria-label="Profile Card Stack">
-        <div class="card-stack" id="cardStack">
-          <!-- Back Duplicate Card (Peeks subtly behind active card) -->
-          <article class="profile-card is-back" id="backCard" aria-hidden="true"></article>
+      <div class="profile-feed" aria-label="Sanjit’s scrolling profile">
+        <section class="deck-wrapper" aria-label="Profile Card Stack">
+          <div class="card-stack" id="cardStack">
+            <!-- Back Duplicate Card (Peeks subtly behind active card) -->
+            <article class="profile-card is-back" id="backCard" aria-hidden="true"></article>
 
-          <!-- Active Swipeable Card -->
-          <article class="profile-card is-active" id="activeCard" aria-label="Sanjit's Profile Card"></article>
-        </div>
-      </section>
+            <!-- Active Swipeable Card -->
+            <article class="profile-card is-active" id="activeCard" aria-label="Sanjit's Profile Card"></article>
+          </div>
+        </section>
+        <div class="sheet-body" id="profileFeed"></div>
+      </div>
 
       <!-- ====================================================================
            BOTTOM FLOATING TINDER CIRCULAR ACTION BAR
@@ -1575,10 +1602,6 @@
           {
             "url": "/photos/sanjit-at-celebration.jpg",
             "alt": "Sanjit in a blue kurta at a celebration"
-          },
-          {
-            "url": "/photos/family-portrait.jpg?v=family-four",
-            "alt": "Sanjit with his family in a group portrait"
           }
         ],
       // Playful floating toasts that cycle on repeated left swipes
@@ -1631,6 +1654,7 @@
         sheetStoryBars: document.getElementById("sheetStoryBars"),
         sheetPhotoStage: document.getElementById("sheetPhotoStage"),
         sheetBody: document.getElementById("sheetBody"),
+        profileFeed: document.getElementById("profileFeed"),
         btnCloseSheet: document.getElementById("btnCloseSheet"),
         sheetBtnNope: document.getElementById("sheetBtnNope"),
         sheetBtnSuper: document.getElementById("sheetBtnSuper"),
@@ -1978,7 +2002,11 @@
           )
           .join("");
 
-        el.sheetBody.innerHTML = `
+        const detailPhotos = PROFILE_CONFIG.photos.slice(1).map(photo =>
+          `<img class="profile-detail-photo" src="${escapeHtml(photo.url)}" alt="${escapeHtml(photo.alt)}" loading="lazy">`
+        );
+
+        const profileDetails = `
           <div class="sheet-header-block">
             <div class="sheet-name-row">
               <span class="sheet-name">${escapeHtml(PROFILE_CONFIG.name)}</span>
@@ -2004,15 +2032,21 @@
             </div>
           </div>
 
+          ${detailPhotos[0]}
+
           <div class="sheet-section">
             <div class="sheet-section-title">About Me</div>
             <p class="sheet-bio-text">${escapeHtml(PROFILE_CONFIG.bio)}</p>
           </div>
 
+          ${detailPhotos[1]}
+
           <div class="sheet-section">
             <div class="sheet-section-title">Essentials</div>
             <div class="essentials-grid">${essentialsHtml}</div>
           </div>
+
+          ${detailPhotos[2]}
 
           <div class="sheet-section">
             <div class="sheet-section-title">Interests</div>
@@ -2024,6 +2058,8 @@
             ${promptsHtml}
           </div>
         `;
+        el.sheetBody.innerHTML = profileDetails;
+        el.profileFeed.innerHTML = profileDetails;
       }
 
       function openProfileSheet() {
@@ -2258,6 +2294,11 @@
           return;
         }
 
+        if (Math.abs(dy) >= Math.abs(dx)) {
+          resetCardPosition();
+          return;
+        }
+
         // Swipe threshold or quick horizontal flick
         const velocityX = Math.abs(dx) / Math.max(1, elapsed);
         if (dx > 92 || (dx > 50 && velocityX > 0.55)) {
@@ -2270,7 +2311,12 @@
       }
 
       el.activeCard.addEventListener("pointerup", finishPointerDrag);
-      el.activeCard.addEventListener("pointercancel", finishPointerDrag);
+      el.activeCard.addEventListener("pointercancel", () => {
+        if (!state.isDragging) return;
+        state.isDragging = false;
+        state.pointerId = null;
+        resetCardPosition();
+      });
 
       // Photo tap inside the Full Profile sheet header
       el.sheetPhotoWrap.addEventListener("click", (evt) => {
@@ -2287,7 +2333,7 @@
          "IT'S A MATCH!" MODAL, CONFETTI & WHATSAPP HANDOFF
          ======================================================================== */
       function spawnConfetti() {
-        const colors = ["#9C3769", "#AC4962", "#21D07C", "#F5B748", "#22B8CF", "#A655F7"];
+        const colors = ["#FD297B", "#FF5864", "#21D07C", "#F5B748", "#22B8CF", "#A655F7"];
         el.confettiLayer.innerHTML = "";
 
         for (let i = 0; i < 28; i++) {
