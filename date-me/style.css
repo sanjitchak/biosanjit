@@ -1,0 +1,65 @@
+:root {
+  color-scheme: light;
+  --paper: #fff8f2;
+  --ink: #301c20;
+  --muted: #614b4f;
+  --accent: #9b3251;
+  --line: #e9d6d1;
+  --serif: Georgia, 'Times New Roman', serif;
+  font-family: system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--paper); line-height: 1.6; }
+.wrap { width: min(1080px, calc(100% - 40px)); margin-inline: auto; }
+a { color: inherit; text-underline-offset: .2em; }
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 3px solid #9b3251;
+  outline-offset: 4px;
+}
+.site-header { min-height: 78px; display: flex; align-items: center; gap: clamp(12px, 3vw, 36px); border-bottom: 1px solid var(--line); }
+.site-header a { text-decoration: none; }
+.brand { margin-right: auto; font: 700 1.5rem var(--serif); }
+.brand span, .hero em { color: var(--accent); }
+.header-cta { border: 1px solid var(--line); border-radius: 100px; padding: 8px 14px; white-space: nowrap; }
+.hero { display: grid; grid-template-columns: 1fr .84fr; gap: clamp(28px, 7vw, 96px); align-items: center; padding-block: clamp(28px, 6vw, 78px); }
+.eyebrow { color: var(--accent); font-weight: 700; font-size: .8rem; letter-spacing: .13em; text-transform: uppercase; }
+h1, h2 { font-family: var(--serif); line-height: 1.02; font-weight: 400; margin: 0 0 20px; }
+h1 { font-size: clamp(2.65rem, 7.7vw, 6rem); letter-spacing: -.065em; }
+h1 em { display: block; }
+h2 { font-size: clamp(2rem, 4.5vw, 3.7rem); letter-spacing: -.04em; }
+.intro { font-size: clamp(1rem, 1.7vw, 1.25rem); max-width: 38ch; color: var(--muted); }
+.button, .whatsapp { display: inline-flex; gap: 12px; align-items: center; justify-content: center; border: 0; border-radius: 100px; padding: 11px 20px; color: white; background: var(--accent); text-decoration: none; font-weight: 650; }
+.button:disabled { opacity: .65; cursor: wait; }
+.text-link { display: inline-block; margin: 14px 0; font-weight: 650; }
+.hero .text-link { margin-left: 12px; }
+.portrait { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 24px; background: #fffdfa; box-shadow: 0 14px 40px #4e283014; }
+.photo-stage { aspect-ratio: 5 / 6; overflow: hidden; background: #ebd4c7; touch-action: pan-y; }
+.photo-stage img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 42%; }
+.photo-stage img[hidden] { display: none; }
+.photo-stage img[src*="family-portrait"] { object-fit: contain; }
+.photo-controls { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; color: var(--muted); }
+.photo-controls button { border: 1px solid var(--line); border-radius: 100%; width: 44px; height: 44px; background: transparent; color: var(--ink); }
+.facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 0; padding: 22px 0; border-block: 1px solid var(--line); }
+.facts dt { font-size: .76rem; font-weight: 750; color: var(--accent); text-transform: uppercase; }
+.facts dd { margin: 0; }
+.story, .family, .contact { padding-block: clamp(42px, 8vw, 86px); border-bottom: 1px solid var(--line); }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.cards article, .form-panel { background: #fffdfa; border: 1px solid var(--line); border-radius: 20px; padding: clamp(16px, 3vw, 28px); }
+.cards h3, #receipt h3 { margin: 0 0 8px; font: 700 1.25rem var(--serif); }
+.cards p, .family p, .contact p { color: var(--muted); }
+.family, .contact { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px, 6vw, 70px); align-items: start; }
+.family img { width: 100%; height: auto; border-radius: 20px; }
+form label { display: block; margin-bottom: 4px; font-weight: 650; }
+form input, form textarea { width: 100%; margin-bottom: 14px; border: 1px solid #bda8a9; border-radius: 10px; padding: 10px; color: var(--ink); background: white; }
+form textarea { resize: vertical; }
+.status { min-height: 1.5em; margin: 10px 0 7px; }
+.whatsapp { background: #25d366; color: #092b16; }
+footer { display: flex; justify-content: space-between; gap: 12px; padding-block: 24px; }
+@media (max-width: 740px) {
+  .hero, .family, .contact, .cards { grid-template-columns: 1fr; }
+  .hero { gap: 18px; }
+  .portrait { max-width: 490px; width: 100%; justify-self: center; }
+  .facts { grid-template-columns: repeat(2, 1fr); }
+}

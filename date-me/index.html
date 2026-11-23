@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Meet Sanjit Chakrabarti, a Delhi-based entrepreneur looking to meet someone for marriage.">
+  <title>Date Me | Sanjit Chakrabarti</title>
+  <link rel="canonical" href="https://bio.sanjitchakrabarti.com/date-me/">
+  <link rel="stylesheet" href="/date-me/style.css">
+  <script src="/date-me/profile.js" defer></script>
+</head>
+<body id="top">
+  <header class="site-header wrap">
+    <a class="brand" href="/date-me/">Date Me <span aria-hidden="true">✳</span></a>
+    <a href="#about">My story</a>
+    <a href="#introduce" class="header-cta">Say hello <span aria-hidden="true">↗</span></a>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="name">
+      <div class="hero-copy">
+        <p class="eyebrow">Bengali roots · Delhi</p>
+        <h1 id="name">Sanjit <em>Chakrabarti</em></h1>
+        <p class="intro">I run my own digital marketing firm from my home, in my own flat in Delhi. Away from work, I’m happiest lifting weights or heading for the mountains.</p>
+        <a class="button" href="#introduce">Send an introduction <span aria-hidden="true">↗</span></a>
+        <a class="text-link" href="#about">Get to know me <span aria-hidden="true">↓</span></a>
+      </div>
+      <figure class="portrait" aria-label="Photos of Sanjit and his family">
+        <div class="photo-stage" id="photo-stage">
+            <img src="/photos/sanjit-in-the-hills.jpg" alt="Sanjit overlooking the hills at sunset" fetchpriority="high">
+            <img src="/photos/sanjit-at-night.jpg" alt="Sanjit with city lights behind him at night" hidden loading="lazy">
+            <img src="/photos/sanjit-at-work.jpg" alt="Sanjit working on his laptop at a café" hidden loading="lazy">
+            <img src="/photos/sanjit-at-celebration.jpg" alt="Sanjit in a blue kurta at a celebration" hidden loading="lazy">
+            <img src="/photos/family-portrait.jpg?v=family-four" alt="Sanjit with his family in a group portrait" hidden loading="lazy">
+        </div>
+        <figcaption class="photo-controls">
+          <button type="button" id="previous-photo" aria-label="Previous photo">←</button>
+          <span id="photo-count" aria-live="polite">1 / 5</span>
+          <button type="button" id="next-photo" aria-label="Next photo">→</button>
+        </figcaption>
+      </figure>
+    </section>
+    <dl class="facts">
+      <div><dt>Born</dt><dd><time datetime="1996-06-03">3 June 1996</time></dd></div>
+      <div><dt>Height</dt><dd>5′10″</dd></div>
+      <div><dt>Background</dt><dd>Bengali Hindu</dd></div>
+      <div><dt>Gotra &amp; rashi</dt><dd>Kashyap · Dhanu</dd></div>
+    </dl>
+    <section class="story" id="about" aria-labelledby="about-title">
+      <h2 id="about-title">A little about me</h2>
+      <div class="cards">
+        <article><h3>Work and education</h3>
+        <p>I studied computer science engineering at SRSIT in Bangalore under Visvesvaraya Technological University (VTU). I went to Salwan Public School in Mayur Vihar and KCMS in Kalyani. After college, I started <a href="https://growonlinetoday.com/" target="_blank" rel="noopener">GrowOnlineToday</a>, my digital marketing and business growth consultancy. My annual income is ₹15–20 lakh.</p></article>
+        <article><h3>Outside work</h3>
+        <p>I enjoy trekking and weight training. I sometimes volunteer with YFS, an NGO. I’m non-vegetarian and enjoy Bengali, South Indian, and Chinese food.</p>
+        <p>I read business and personal development books, including <cite>Pitch Anything</cite> and <cite>Never Split the Difference</cite>. I usually dress casually and enjoy trips to the mountains or the beach.</p></article>
+        <article><h3>Marriage and horoscope details</h3>
+        <p>I’ve never been married. I was born in Sonipat, Haryana, at 4:32 p.m. My gotra is Kashyap, my rashi is Dhanu, my nakshatra is Moola, and my gon is Debari. A horoscope match is optional for me.</p></article>
+      </div>
+    </section>
+    <section class="family" aria-labelledby="family-title">
+      <div><h2 id="family-title">My family</h2><p>I come from a nuclear Bengali family with roots in Naihati, West Bengal. My father has a corporate job in Malaysia, my mother is a homemaker, and my sister works in bioinformatics at a company in Bangalore. I live on my own in Delhi and speak Bengali, Hindi, and English.</p></div>
+      <img src="/photos/family-portrait.jpg?v=family-four" alt="Sanjit with his family in a group portrait" loading="lazy" width="1448" height="850">
+    </section>
+    <section class="contact" id="introduce" aria-labelledby="introduce-title">
+      <div>
+        <h2 id="introduce-title">Let’s get to know each other</h2>
+        <p>I’d like to meet a well-educated woman who’s open to settling in Delhi.</p>
+        <p>If that sounds like the future you’re looking for, I’d love to hear a little about you.</p>
+        <a class="text-link" href="/sanjit-chakrabarti-bio.pdf?v=horoscope-update" download>Download my full bio (PDF) ↓</a>
+      </div>
+      <div class="form-panel">
+        <form id="date-introduction">
+          <label for="date-name">Your name</label>
+          <input id="date-name" name="name" autocomplete="name" maxlength="100" required>
+          <label for="date-phone">Your WhatsApp number</label>
+          <input id="date-phone" name="phone" autocomplete="tel" type="tel" pattern="[+0-9 \(\) \-]{7,25}" required>
+          <label for="date-message">A little about you <small>(optional)</small></label>
+          <textarea id="date-message" name="message" rows="4" maxlength="600"></textarea>
+          <button class="button" type="submit" disabled>Send introduction</button>
+          <p class="status" id="form-status" role="status">You can contact me directly on WhatsApp.</p>
+        </form>
+        <div id="receipt" hidden tabindex="-1">
+          <h3>Thank you for saying hello</h3>
+          <p>Your introduction was received.</p>
+        </div>
+        <a class="whatsapp" href="https://wa.me/917278135942?text=Hi%20Sanjit%21%20I%20came%20across%20your%20bio%20and%20would%20love%20to%20say%20hello." target="_blank" rel="noopener">Say hello on WhatsApp ↗</a>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap"><a href="/">Main bio</a><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>
