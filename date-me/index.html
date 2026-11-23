@@ -2380,6 +2380,41 @@
       const leadEndpoint = "https://script.google.com/macros/s/AKfycbzH91w4_HfCm_gmJBgCPZX9lueV-CBq-_mhGwlIFj9FntlyM_gpYE77R9Iaxcceu2G7AQ/exec";
       const submitButton = el.matchForm.querySelector('button[type="submit"]');
       let requestId;
+      let leadTracked = false;
+
+      function trackConfirmedLead() {
+        if (leadTracked) return Promise.resolve();
+        leadTracked = true;
+        return new Promise(resolve => {
+          const pixelId = "1783700199409062";
+          const pixel = function (...args) {
+            if (pixel.callMethod) pixel.callMethod(...args);
+            else pixel.queue.push(args);
+          };
+          pixel.queue = [];
+          pixel.push = pixel;
+          pixel.loaded = true;
+          pixel.version = "2.0";
+          window.fbq = window._fbq = pixel;
+          pixel("set", "autoConfig", false, pixelId);
+          pixel("init", pixelId);
+          pixel("trackSingle", pixelId, "Lead");
+
+          const script = document.createElement("script");
+          script.async = true;
+          script.src = "https://connect.facebook.net/en_US/fbevents.js";
+          script.referrerPolicy = "no-referrer";
+          const deadline = setTimeout(resolve, 2200);
+          function finish() {
+            clearTimeout(deadline);
+            resolve();
+          }
+          script.addEventListener("load", () => setTimeout(finish, 350), { once: true });
+          script.addEventListener("error", finish, { once: true });
+          document.head.append(script);
+        });
+      }
+
       el.matchForm.addEventListener("submit", async (evt) => {
         evt.preventDefault();
         if (submitButton.disabled) return;
@@ -2434,6 +2469,7 @@
           submitButton.disabled = false;
           return;
         }
+        await trackConfirmedLead();
         requestId = undefined;
         submitButton.disabled = false;
 
