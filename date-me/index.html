@@ -2437,19 +2437,8 @@
         requestId = undefined;
         submitButton.disabled = false;
 
-        // Build clean pre-filled WhatsApp message
-        const lines = [
-          `Hey ${PROFILE_CONFIG.name}! I just swiped right on your profile.`,
-          "",
-          `Name: ${nameVal}`,
-          `Phone: ${phoneVal}`
-        ];
-        if (aboutVal) {
-          lines.push(`About me: ${aboutVal}`);
-        }
-
-        const cleanTargetNumber = String(PROFILE_CONFIG.whatsappNumber).replace(/[^\d]/g, "");
-        const whatsappUrl = `https://wa.me/${cleanTargetNumber}?text=${encodeURIComponent(lines.join("\n"))}`;
+        const message = `Hey ${PROFILE_CONFIG.name}! I just swiped right on your profile.`;
+        const whatsappUrl = `https://wa.me/${PROFILE_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
         // Update UI and redirect directly to WhatsApp
         el.whatsappBtnLabel.textContent = "Opening WhatsApp...";
