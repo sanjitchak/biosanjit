@@ -1,92 +1,2486 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Meet Sanjit Chakrabarti, a Delhi-based entrepreneur looking to meet someone for marriage.">
-  <title>Date Me | Sanjit Chakrabarti</title>
-  <link rel="canonical" href="https://bio.sanjitchakrabarti.com/date-me/">
-  <link rel="stylesheet" href="/date-me/style.css">
-  <script src="/date-me/profile.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>Sanjit | Swipe Right</title>
+
+  <!-- Crisp modern typography with native system fallbacks -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & RESET
+       ========================================================================== */
+    :root {
+      --tinder-pink: #9C3769;
+      --tinder-coral: #AC4962;
+      --tinder-orange: #B66155;
+      --tinder-gradient: linear-gradient(135deg, #9C3769 0%, #AC4962 50%, #B66155 100%);
+      --like-green: #21D07C;
+      --nope-red: #FE5068;
+      --super-blue: #22B8CF;
+      --rewind-amber: #F5B748;
+      --boost-purple: #A655F7;
+      --whatsapp-green: #25D366;
+      --whatsapp-dark: #128C7E;
+      --verified-blue: #2088FF;
+
+      --bg-desktop: radial-gradient(circle at 20% 20%, #1d202b 0%, #101218 60%, #090a0e 100%);
+      --surface-app: #FFFFFF;
+      --surface-subtle: #F5F6FA;
+      --text-primary: #181A20;
+      --text-secondary: #5C6270;
+      --text-muted: #8A91A0;
+      --border-light: #EAECEF;
+
+      --radius-card: 16px;
+      --radius-sheet: 24px;
+      --shadow-card: 0 12px 28px rgba(15, 23, 42, 0.14), 0 2px 6px rgba(15, 23, 42, 0.08);
+      --shadow-btn: 0 6px 18px rgba(15, 23, 42, 0.11);
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      overscroll-behavior: none;
+      font-family: var(--font-main);
+      color: var(--text-primary);
+      background: var(--surface-app);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* ==========================================================================
+       2. MOBILE-ONLY VIEWPORT & DESKTOP DEVICE FRAME
+       ========================================================================== */
+    .stage {
+      width: 100vw;
+      height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface-app);
+    }
+
+    .app-shell {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: var(--surface-app);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Desktop presentation: centered mobile app frame against charcoal backdrop */
+    @media (min-width: 521px) {
+      .stage {
+        background: var(--bg-desktop);
+        padding: 20px;
+      }
+
+      .app-shell {
+        width: 100%;
+        max-width: 414px;
+        height: min(860px, calc(100dvh - 40px));
+        max-height: 860px;
+        border-radius: 38px;
+        border: 8px solid #1b1e28;
+        box-shadow:
+          0 32px 70px rgba(0, 0, 0, 0.58),
+          0 0 0 1px rgba(255, 255, 255, 0.08),
+          inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+      }
+    }
+
+    /* ==========================================================================
+       3. TOP NAVIGATION HEADER
+       ========================================================================== */
+    .app-header {
+      flex-shrink: 0;
+      height: calc(56px + env(safe-area-inset-top, 0px));
+      padding: env(safe-area-inset-top, 0px) 16px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface-app);
+      z-index: 20;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .brand-flame {
+      width: 28px;
+      height: 28px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      background: var(--tinder-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .header-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: #FFF1F4;
+      color: var(--tinder-pink);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .header-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--tinder-pink);
+      box-shadow: 0 0 0 3px rgba(253, 41, 123, 0.18);
+      animation: pulseDot 2.2s infinite ease-in-out;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.25); opacity: 0.7; }
+    }
+
+    /* ==========================================================================
+       4. FLOATING PLAYFUL TOAST (LEFT SWIPE / ACTION FEEDBACK)
+       ========================================================================== */
+    .toast-layer {
+      position: absolute;
+      top: calc(64px + env(safe-area-inset-top, 0px));
+      left: 16px;
+      right: 16px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 45;
+    }
+
+    .toast-pill {
+      max-width: 94%;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(20, 22, 29, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.3;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.24);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      opacity: 0;
+      transform: translateY(-14px) scale(0.94);
+      transition: opacity 0.24s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .toast-pill.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* ==========================================================================
+       5. CARD DECK & SWIPEABLE PROFILE CARD
+       ========================================================================== */
+    .deck-wrapper {
+      position: relative;
+      flex: 1 1 auto;
+      min-height: 0;
+      padding: 4px 10px 8px;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .card-stack {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .profile-card {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      background: #14161D;
+      box-shadow: var(--shadow-card);
+      will-change: transform, opacity;
+      touch-action: none;
+    }
+
+    /* Background duplicate card peeking subtly behind active card */
+    .profile-card.is-back {
+      z-index: 1;
+      transform: scale(0.955) translateY(10px);
+      opacity: 0.92;
+      filter: brightness(0.92);
+      pointer-events: none;
+      transition: transform 0.25s ease, opacity 0.25s ease, filter 0.25s ease;
+    }
+
+    .profile-card.is-active {
+      z-index: 2;
+      cursor: grab;
+    }
+
+    .profile-card.is-active:active {
+      cursor: grabbing;
+    }
+
+    .profile-card.is-animating {
+      transition: transform 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.18), opacity 0.32s ease;
+    }
+
+    .profile-card.is-flying {
+      transition: transform 0.36s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.32s ease;
+    }
+
+    .profile-card.is-entering {
+      animation: cardPopIn 0.34s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes cardPopIn {
+      0% {
+        transform: scale(0.955) translateY(10px);
+        opacity: 0.92;
+      }
+      100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Photo container inside card */
+    .card-photo-stage {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #272b38 0%, #14161e 100%);
+    }
+
+    .card-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      opacity: 0;
+      transition: opacity 0.22s ease;
+      pointer-events: none;
+    }
+
+    .card-photo.is-current {
+      opacity: 1;
+    }
+
+    /* Clean fallback visual when a photo URL fails to load */
+    .card-photo-fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(145deg, #2b1d2e 0%, #191d2b 55%, #11131a 100%);
+      color: rgba(255, 255, 255, 0.85);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .card-photo-fallback.is-visible {
+      opacity: 1;
+    }
+
+    .fallback-monogram {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: var(--tinder-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: 800;
+      color: #FFFFFF;
+      box-shadow: 0 14px 30px rgba(253, 41, 123, 0.35);
+    }
+
+    /* Subtle top scrim so story bars remain crisp over bright photos */
+    .card-top-scrim {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 76px;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0) 100%);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* Multi-photo story progress bars */
+    .story-bars {
+      position: absolute;
+      top: 9px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      gap: 5px;
+      z-index: 6;
+      pointer-events: none;
+    }
+
+    .story-bar {
+      flex: 1;
+      height: 3.5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.34);
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+      transition: background 0.2s ease;
+    }
+
+    .story-bar.is-active {
+      background: #FFFFFF;
+    }
+
+    /* Swipe Stamps (LIKE / NOPE / SUPER LIKE) */
+    .swipe-stamp {
+      position: absolute;
+      top: 52px;
+      padding: 5px 14px;
+      border-radius: 8px;
+      border: 4px solid;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.05;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 8;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    }
+
+    .stamp-like {
+      left: 20px;
+      color: var(--like-green);
+      border-color: var(--like-green);
+      transform: rotate(-16deg);
+    }
+
+    .stamp-nope {
+      right: 20px;
+      color: var(--nope-red);
+      border-color: var(--nope-red);
+      transform: rotate(16deg);
+    }
+
+    .stamp-super {
+      left: 50%;
+      top: auto;
+      bottom: 190px;
+      color: var(--super-blue);
+      border-color: var(--super-blue);
+      font-size: 26px;
+      transform: translateX(-50%) rotate(-8deg);
+      white-space: nowrap;
+    }
+
+    /* Bottom gradient scrim and profile info overlay */
+    .card-bottom-scrim {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 72px 16px 16px;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.94) 0%,
+        rgba(0, 0, 0, 0.72) 48%,
+        rgba(0, 0, 0, 0.22) 80%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      color: #FFFFFF;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .card-info-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-info-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .active-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      margin-bottom: 7px;
+      border-radius: 999px;
+      background: rgba(24, 26, 32, 0.62);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #F3F4F6;
+    }
+
+    .active-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22C55E;
+      box-shadow: 0 0 8px #22C55E;
+    }
+
+    .card-name-line {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: nowrap;
+      margin-bottom: 5px;
+    }
+
+    .card-name {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    }
+
+    .card-age {
+      font-size: 26px;
+      font-weight: 400;
+      opacity: 0.94;
+      line-height: 1.08;
+    }
+
+    .verified-icon {
+      width: 23px;
+      height: 23px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.28));
+    }
+
+    .card-meta-list {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5px;
+      margin-bottom: 10px;
+    }
+
+    .card-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.92);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+    }
+
+    .card-meta-item svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      opacity: 0.9;
+    }
+
+    .card-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .card-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+
+    .card-caption-snippet {
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.94);
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Info Up-Arrow Button on Bottom Right of Card */
+    .info-open-btn {
+      pointer-events: auto;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.85);
+      background: rgba(20, 22, 29, 0.52);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .info-open-btn:active {
+      transform: scale(0.9);
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    /* Subtle tap hint chevrons on photo edges (fade on tap) */
+    .photo-tap-feedback {
+      position: absolute;
+      top: 50%;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.35);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(-50%) scale(0.8);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      z-index: 6;
+    }
+
+    .photo-tap-feedback.left { left: 12px; }
+    .photo-tap-feedback.right { right: 12px; }
+    .photo-tap-feedback.is-flash {
+      opacity: 1;
+      transform: translateY(-50%) scale(1);
+    }
+
+    /* ==========================================================================
+       6. FLOATING TINDER CIRCULAR ACTION BAR
+       ========================================================================== */
+    .action-bar {
+      flex-shrink: 0;
+      padding: 8px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      background: var(--surface-app);
+      z-index: 20;
+    }
+
+    .action-btn {
+      border: 1px solid rgba(15, 23, 42, 0.05);
+      background: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-btn);
+      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.18s ease, background 0.18s ease;
+      position: relative;
+    }
+
+    .action-btn.is-sm {
+      width: 48px;
+      height: 48px;
+    }
+
+    .action-btn.is-lg {
+      width: 62px;
+      height: 62px;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.14);
+    }
+
+    .action-btn:active {
+      transform: scale(0.9);
+    }
+
+    .action-btn.btn-rewind { color: var(--rewind-amber); }
+    .action-btn.btn-nope { color: var(--nope-red); }
+    .action-btn.btn-super { color: var(--super-blue); }
+    .action-btn.btn-like { color: var(--like-green); }
+    .action-btn.btn-boost { color: var(--boost-purple); }
+
+    /* Highlighted state while actively dragging card */
+    .action-btn.btn-nope.is-highlighted {
+      transform: scale(1.12);
+      background: var(--nope-red);
+      color: #FFFFFF;
+      box-shadow: 0 10px 24px rgba(254, 80, 104, 0.42);
+    }
+
+    .action-btn.btn-like.is-highlighted {
+      transform: scale(1.12);
+      background: var(--like-green);
+      color: #FFFFFF;
+      box-shadow: 0 10px 24px rgba(33, 208, 124, 0.42);
+    }
+
+    /* ==========================================================================
+       7. SLIDE-UP FULL PROFILE SHEET
+       ========================================================================== */
+    .profile-sheet {
+      position: absolute;
+      inset: 0;
+      background: #FFFFFF;
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(100%);
+      transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+
+    .profile-sheet.is-open {
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .sheet-scroll {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      padding-bottom: 104px;
+    }
+
+    .sheet-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .sheet-photo-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      max-height: 62dvh;
+      background: #14161D;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .sheet-photo-wrap .card-photo {
+      opacity: 0;
+    }
+
+    .sheet-photo-wrap .card-photo.is-current {
+      opacity: 1;
+    }
+
+    .sheet-close-btn {
+      position: absolute;
+      right: 18px;
+      bottom: -24px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: var(--tinder-gradient);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 24px rgba(253, 41, 123, 0.42);
+      cursor: pointer;
+      z-index: 12;
+      transition: transform 0.18s ease;
+    }
+
+    .sheet-close-btn:active {
+      transform: scale(0.9);
+    }
+
+    .sheet-hero-anchor {
+      position: relative;
+    }
+
+    .sheet-body {
+      padding: 20px 18px 24px;
+    }
+
+    .sheet-header-block {
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .sheet-name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .sheet-name {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+    }
+
+    .sheet-age {
+      font-size: 25px;
+      font-weight: 400;
+      color: var(--text-secondary);
+    }
+
+    .sheet-quick-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .sheet-meta-line {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .sheet-meta-line svg {
+      width: 16px;
+      height: 16px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .sheet-section {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .sheet-section:last-child {
+      border-bottom: none;
+    }
+
+    .sheet-section-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .looking-for-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 15px;
+      border-radius: 14px;
+      background: #FFF2F6;
+      border: 1px solid #FFD6E2;
+      color: #B91C4A;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .sheet-bio-text {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #2B303B;
+      font-weight: 400;
+    }
+
+    .essentials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .essential-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #2B303B;
+      font-weight: 500;
+    }
+
+    .essential-badge {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: var(--surface-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .sheet-interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .sheet-interest-pill {
+      padding: 7px 13px;
+      border-radius: 999px;
+      border: 1px solid #DCE0E8;
+      background: #FFFFFF;
+      font-size: 13px;
+      font-weight: 600;
+      color: #363C49;
+    }
+
+    .prompt-card {
+      background: var(--surface-subtle);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid #ECEFF5;
+    }
+
+    .prompt-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .prompt-q {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--tinder-pink);
+      margin-bottom: 6px;
+    }
+
+    .prompt-a {
+      font-size: 15.5px;
+      font-weight: 600;
+      line-height: 1.48;
+      color: var(--text-primary);
+    }
+
+    /* Sticky bottom swipe buttons inside Full Profile sheet */
+    .sheet-sticky-actions {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 16px 20px calc(18px + env(safe-area-inset-bottom, 0px));
+      background: linear-gradient(to top, #FFFFFF 65%, rgba(255, 255, 255, 0) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      pointer-events: none;
+    }
+
+    .sheet-sticky-actions .action-btn {
+      pointer-events: auto;
+    }
+
+    /* ==========================================================================
+       8. "IT'S A MATCH!" MODAL OVERLAY & WHATSAPP FORM
+       ========================================================================== */
+    .match-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 80;
+      background: rgba(14, 16, 22, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+
+    .match-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .match-modal {
+      position: relative;
+      width: 100%;
+      max-height: 100%;
+      overflow-y: auto;
+      background: #FFFFFF;
+      border-radius: 26px;
+      padding: 24px 20px 20px;
+      box-shadow: 0 26px 64px rgba(0, 0, 0, 0.45);
+      transform: translateY(26px) scale(0.94);
+      transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    .match-overlay.is-open .match-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .match-modal::-webkit-scrollbar {
+      display: none;
+    }
+
+    .match-top {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .match-sparkle-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: #FFF0F5;
+      color: var(--tinder-pink);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .match-title {
+      font-size: 32px;
+      font-weight: 800;
+      font-style: italic;
+      letter-spacing: -0.03em;
+      background: var(--tinder-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+
+    .match-avatar-wrap {
+      position: relative;
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 12px;
+    }
+
+    .match-avatar-ring {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      padding: 3.5px;
+      background: var(--tinder-gradient);
+      box-shadow: 0 10px 26px rgba(253, 41, 123, 0.32);
+    }
+
+    .match-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 20%;
+      border: 3px solid #FFFFFF;
+      background: #232734;
+      display: block;
+    }
+
+    .match-heart-pin {
+      position: absolute;
+      right: -2px;
+      bottom: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--like-green);
+      border: 3px solid #FFFFFF;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(33, 208, 124, 0.45);
+    }
+
+    .match-subtitle {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      max-width: 295px;
+      margin: 0 auto;
+    }
+
+    /* Form inside Match Modal */
+    .match-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #363C49;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .field-optional {
+      font-weight: 500;
+      color: var(--text-muted);
+      font-size: 11.5px;
+    }
+
+    .field-input,
+    .field-textarea {
+      width: 100%;
+      font-family: var(--font-main);
+      font-size: 15px;
+      color: var(--text-primary);
+      background: var(--surface-subtle);
+      border: 1.5px solid #E5E8F0;
+      border-radius: 14px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      -webkit-appearance: none;
+    }
+
+    .field-textarea {
+      resize: none;
+      min-height: 78px;
+      line-height: 1.45;
+    }
+
+    .field-input::placeholder,
+    .field-textarea::placeholder {
+      color: #9AA1B1;
+    }
+
+    .field-input:focus,
+    .field-textarea:focus {
+      background: #FFFFFF;
+      border-color: var(--tinder-pink);
+      box-shadow: 0 0 0 3.5px rgba(253, 41, 123, 0.12);
+    }
+
+    .field-input.is-invalid {
+      border-color: var(--nope-red);
+      background: #FFF5F6;
+      box-shadow: 0 0 0 3px rgba(254, 80, 104, 0.12);
+    }
+
+    .field-error {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--nope-red);
+      min-height: 15px;
+      display: none;
+    }
+
+    .field-error.is-visible {
+      display: block;
+    }
+
+    .whatsapp-submit-btn {
+      margin-top: 4px;
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 15px 20px;
+      background: linear-gradient(135deg, var(--whatsapp-green) 0%, #1EBE5D 100%);
+      color: #FFFFFF;
+      font-family: var(--font-main);
+      font-size: 15.5px;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(37, 211, 102, 0.34);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+    }
+
+    .whatsapp-submit-btn:hover {
+      filter: brightness(1.03);
+      transform: translateY(-1px);
+    }
+
+    .whatsapp-submit-btn:active {
+      transform: scale(0.97);
+    }
+
+    .match-fallback-link {
+      display: none;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--whatsapp-dark);
+      font-weight: 700;
+      text-decoration: underline;
+      margin-top: 6px;
+    }
+
+    .match-fallback-link.is-visible {
+      display: block;
+    }
+
+    .keep-viewing-btn {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      background: none;
+      border: none;
+      font-family: var(--font-main);
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.18s ease;
+    }
+
+    .keep-viewing-btn:hover {
+      color: var(--text-primary);
+    }
+
+    /* ==========================================================================
+       9. CELEBRATION CONFETTI LAYER
+       ========================================================================== */
+    .confetti-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 85;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      top: -14px;
+      border-radius: 3px;
+      opacity: 0;
+      animation: confettiFall 1.35s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(var(--drift), 480px, 0) rotate(var(--spin));
+      }
+    }
+
+    /* Small screen height refinements */
+    @media (max-height: 680px) {
+      .app-header { height: calc(48px + env(safe-area-inset-top, 0px)); }
+      .action-bar { padding: 6px 14px calc(10px + env(safe-area-inset-bottom, 0px)); gap: 11px; }
+      .action-btn.is-sm { width: 42px; height: 42px; }
+      .action-btn.is-lg { width: 54px; height: 54px; }
+      .card-name { font-size: 26px; }
+      .card-age { font-size: 22px; }
+      .match-modal { padding: 18px 16px 16px; }
+      .match-title { font-size: 28px; margin-bottom: 10px; }
+      .match-avatar-wrap { width: 72px; height: 72px; margin-bottom: 8px; }
+    }
+  </style>
 </head>
-<body id="top">
-  <header class="site-header wrap">
-    <a class="brand" href="/date-me/">Date Me <span aria-hidden="true">✳</span></a>
-    <a href="#about">My story</a>
-    <a href="#introduce" class="header-cta">Say hello <span aria-hidden="true">↗</span></a>
-  </header>
-  <main class="wrap">
-    <section class="hero" aria-labelledby="name">
-      <div class="hero-copy">
-        <p class="eyebrow">Bengali roots · Delhi</p>
-        <h1 id="name">Sanjit <em>Chakrabarti</em></h1>
-        <p class="intro">I run my own digital marketing firm from my home, in my own flat in Delhi. Away from work, I’m happiest lifting weights or heading for the mountains.</p>
-        <a class="button" href="#introduce">Send an introduction <span aria-hidden="true">↗</span></a>
-        <a class="text-link" href="#about">Get to know me <span aria-hidden="true">↓</span></a>
-      </div>
-      <figure class="portrait" aria-label="Photos of Sanjit and his family">
-        <div class="photo-stage" id="photo-stage">
-            <img src="/photos/sanjit-in-the-hills.jpg" alt="Sanjit overlooking the hills at sunset" fetchpriority="high">
-            <img src="/photos/sanjit-at-night.jpg" alt="Sanjit with city lights behind him at night" hidden loading="lazy">
-            <img src="/photos/sanjit-at-work.jpg" alt="Sanjit working on his laptop at a café" hidden loading="lazy">
-            <img src="/photos/sanjit-at-celebration.jpg" alt="Sanjit in a blue kurta at a celebration" hidden loading="lazy">
-            <img src="/photos/family-portrait.jpg?v=family-four" alt="Sanjit with his family in a group portrait" hidden loading="lazy">
+<body>
+  <div class="stage">
+    <main class="app-shell" id="appShell" aria-label="Sanjit Dating Profile App">
+
+      <!-- ====================================================================
+           TOP NAVIGATION HEADER
+           ==================================================================== -->
+      <header class="app-header">
+        <div class="brand">
+          <svg class="brand-flame" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="10" fill="#85305c" />
+            <path d="M22 10c-2-3-9-3-11 0-5 7 12 4 11 10-1 5-10 5-13 2" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" />
+          </svg>
+          <span class="brand-name" id="headerBrandName">sanjit</span>
         </div>
-        <figcaption class="photo-controls">
-          <button type="button" id="previous-photo" aria-label="Previous photo">←</button>
-          <span id="photo-count" aria-live="polite">1 / 5</span>
-          <button type="button" id="next-photo" aria-label="Next photo">→</button>
-        </figcaption>
-      </figure>
-    </section>
-    <dl class="facts">
-      <div><dt>Born</dt><dd><time datetime="1996-06-03">3 June 1996</time></dd></div>
-      <div><dt>Height</dt><dd>5′10″</dd></div>
-      <div><dt>Background</dt><dd>Bengali Hindu</dd></div>
-      <div><dt>Gotra &amp; rashi</dt><dd>Kashyap · Dhanu</dd></div>
-    </dl>
-    <section class="story" id="about" aria-labelledby="about-title">
-      <h2 id="about-title">A little about me</h2>
-      <div class="cards">
-        <article><h3>Work and education</h3>
-        <p>I studied computer science engineering at SRSIT in Bangalore under Visvesvaraya Technological University (VTU). I went to Salwan Public School in Mayur Vihar and KCMS in Kalyani. After college, I started <a href="https://growonlinetoday.com/" target="_blank" rel="noopener">GrowOnlineToday</a>, my digital marketing and business growth consultancy. My annual income is ₹15–20 lakh.</p></article>
-        <article><h3>Outside work</h3>
-        <p>I enjoy trekking and weight training. I sometimes volunteer with YFS, an NGO. I’m non-vegetarian and enjoy Bengali, South Indian, and Chinese food.</p>
-        <p>I read business and personal development books, including <cite>Pitch Anything</cite> and <cite>Never Split the Difference</cite>. I usually dress casually and enjoy trips to the mountains or the beach.</p></article>
-        <article><h3>Marriage and horoscope details</h3>
-        <p>I’ve never been married. I was born in Sonipat, Haryana, at 4:32 p.m. My gotra is Kashyap, my rashi is Dhanu, my nakshatra is Moola, and my gon is Debari. A horoscope match is optional for me.</p></article>
-      </div>
-    </section>
-    <section class="family" aria-labelledby="family-title">
-      <div><h2 id="family-title">My family</h2><p>I come from a nuclear Bengali family with roots in Naihati, West Bengal. My father has a corporate job in Malaysia, my mother is a homemaker, and my sister works in bioinformatics at a company in Bangalore. I live on my own in Delhi and speak Bengali, Hindi, and English.</p></div>
-      <img src="/photos/family-portrait.jpg?v=family-four" alt="Sanjit with his family in a group portrait" loading="lazy" width="1448" height="850">
-    </section>
-    <section class="contact" id="introduce" aria-labelledby="introduce-title">
-      <div>
-        <h2 id="introduce-title">Let’s get to know each other</h2>
-        <p>I’d like to meet a well-educated woman who’s open to settling in Delhi.</p>
-        <p>If that sounds like the future you’re looking for, I’d love to hear a little about you.</p>
-        <a class="text-link" href="/sanjit-chakrabarti-bio.pdf?v=horoscope-update" download>Download my full bio (PDF) ↓</a>
-      </div>
-      <div class="form-panel">
-        <form id="date-introduction">
-          <label for="date-name">Your name</label>
-          <input id="date-name" name="name" autocomplete="name" maxlength="100" required>
-          <label for="date-phone">Your WhatsApp number</label>
-          <input id="date-phone" name="phone" autocomplete="tel" type="tel" pattern="[+0-9 \(\) \-]{7,25}" required>
-          <label for="date-message">A little about you <small>(optional)</small></label>
-          <textarea id="date-message" name="message" rows="4" maxlength="600"></textarea>
-          <button class="button" type="submit" disabled>Send introduction</button>
-          <p class="status" id="form-status" role="status">You can contact me directly on WhatsApp.</p>
-        </form>
-        <div id="receipt" hidden tabindex="-1">
-          <h3>Thank you for saying hello</h3>
-          <p>Your introduction was received.</p>
+
+        <div class="header-status">
+          <span class="header-status-dot"></span>
+          <span>Delhi, India</span>
         </div>
-        <a class="whatsapp" href="https://wa.me/917278135942?text=Hi%20Sanjit%21%20I%20came%20across%20your%20bio%20and%20would%20love%20to%20say%20hello." target="_blank" rel="noopener">Say hello on WhatsApp ↗</a>
+      </header>
+
+      <!-- ====================================================================
+           FLOATING PLAYFUL TOAST NOTIFICATION
+           ==================================================================== -->
+      <div class="toast-layer" aria-live="polite">
+        <div class="toast-pill" id="toastPill"></div>
       </div>
-    </section>
-  </main>
-  <footer class="wrap"><a href="/">Main bio</a><a href="#top">Back to top ↑</a></footer>
+
+      <!-- ====================================================================
+           MAIN SWIPEABLE PROFILE CARD DECK
+           ==================================================================== -->
+      <section class="deck-wrapper" aria-label="Profile Card Stack">
+        <div class="card-stack" id="cardStack">
+          <!-- Back Duplicate Card (Peeks subtly behind active card) -->
+          <article class="profile-card is-back" id="backCard" aria-hidden="true"></article>
+
+          <!-- Active Swipeable Card -->
+          <article class="profile-card is-active" id="activeCard" aria-label="Sanjit's Profile Card"></article>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           BOTTOM FLOATING TINDER CIRCULAR ACTION BAR
+           ==================================================================== -->
+      <nav class="action-bar" aria-label="Swipe Actions">
+        <!-- Rewind (Amber) -->
+        <button type="button" class="action-btn is-sm btn-rewind" id="btnRewind" aria-label="Rewind">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+
+        <!-- Nope / X (Coral Red, Large) -->
+        <button type="button" class="action-btn is-lg btn-nope" id="btnNope" aria-label="Swipe Left">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+            <path d="M18 6L6 18" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+
+        <!-- Super Like / Star (Sky Blue) -->
+        <button type="button" class="action-btn is-sm btn-super" id="btnSuper" aria-label="Super Like">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.4l2.85 5.77 6.37.93-4.61 4.49 1.09 6.35L12 16.95l-5.7 2.99 1.09-6.35-4.61-4.49 6.37-.93L12 2.4z" />
+          </svg>
+        </button>
+
+        <!-- Like / Heart (Mint Green, Large) -->
+        <button type="button" class="action-btn is-lg btn-like" id="btnLike" aria-label="Swipe Right">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+        </button>
+
+        <!-- Boost / Lightning (Purple) -->
+        <button type="button" class="action-btn is-sm btn-boost" id="btnBoost" aria-label="Boost">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M13 2L4.5 13.5h6L9.5 22l9-12h-6L13 2z" />
+          </svg>
+        </button>
+      </nav>
+
+      <!-- ====================================================================
+           SLIDE-UP FULL PROFILE VIEW SHEET
+           ==================================================================== -->
+      <section class="profile-sheet" id="profileSheet" aria-label="Full Profile Details" aria-hidden="true">
+        <div class="sheet-scroll" id="sheetScroll">
+          <div class="sheet-hero-anchor">
+            <div class="sheet-photo-wrap" id="sheetPhotoWrap">
+              <div class="card-top-scrim"></div>
+              <div class="story-bars" id="sheetStoryBars"></div>
+              <div id="sheetPhotoStage"></div>
+            </div>
+
+            <!-- Close (Down-Arrow) Button -->
+            <button type="button" class="sheet-close-btn" id="btnCloseSheet" aria-label="Close Full Profile">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14" />
+                <path d="M5 12l7 7 7-7" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="sheet-body" id="sheetBody">
+            <!-- Dynamically populated from PROFILE_CONFIG -->
+          </div>
+        </div>
+
+        <!-- Sticky Bottom Actions inside Full Profile -->
+        <div class="sheet-sticky-actions">
+          <button type="button" class="action-btn is-lg btn-nope" id="sheetBtnNope" aria-label="Swipe Left">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+              <path d="M18 6L6 18" />
+              <path d="M6 6l12 12" />
+            </svg>
+          </button>
+          <button type="button" class="action-btn is-sm btn-super" id="sheetBtnSuper" aria-label="Super Like">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.4l2.85 5.77 6.37.93-4.61 4.49 1.09 6.35L12 16.95l-5.7 2.99 1.09-6.35-4.61-4.49 6.37-.93L12 2.4z" />
+            </svg>
+          </button>
+          <button type="button" class="action-btn is-lg btn-like" id="sheetBtnLike" aria-label="Swipe Right">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           "IT'S A MATCH!" MODAL OVERLAY WITH WHATSAPP FORM
+           ==================================================================== -->
+      <div class="match-overlay" id="matchOverlay" role="dialog" aria-modal="true" aria-labelledby="matchHeading" aria-hidden="true">
+        <div class="match-modal">
+          <div class="match-top">
+            <div class="match-sparkle-row" id="matchBadgeText">You Swiped Right</div>
+            <h2 class="match-title" id="matchHeading">It's a Match!</h2>
+
+            <div class="match-avatar-wrap">
+              <div class="match-avatar-ring">
+                <img class="match-avatar-img" id="matchAvatarImg" alt="Sanjit's photo" />
+              </div>
+              <div class="match-heart-pin" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+              </div>
+            </div>
+
+            <p class="match-subtitle" id="matchSubtitle">
+              Sanjit is waiting to hear from you. Drop your details to chat directly on WhatsApp.
+            </p>
+          </div>
+
+          <form class="match-form" id="matchForm" novalidate>
+            <!-- Field 1: Your Name -->
+            <div class="field-group">
+              <label class="field-label" for="visitorName">Your Name</label>
+              <input
+                type="text"
+                id="visitorName"
+                name="visitorName" maxlength="100"
+                class="field-input"
+                placeholder="Your name"
+                autocomplete="name"
+                required
+              />
+              <span class="field-error" id="errorName">Please enter your name so Sanjit knows who matched.</span>
+            </div>
+
+            <!-- Field 2: Your Phone Number -->
+            <div class="field-group">
+              <label class="field-label" for="visitorPhone">Your Phone Number</label>
+              <input
+                type="tel"
+                id="visitorPhone"
+                name="visitorPhone" maxlength="25"
+                class="field-input"
+                placeholder="Your WhatsApp number"
+                autocomplete="tel"
+                inputmode="tel"
+                required
+              />
+              <span class="field-error" id="errorPhone">Please enter a valid phone number.</span>
+            </div>
+
+            <!-- Field 3: A Little Bit About You -->
+            <div class="field-group">
+              <label class="field-label" for="visitorAbout">
+                <span>A little bit about you</span>
+                <span class="field-optional">Optional</span>
+              </label>
+              <textarea
+                id="visitorAbout"
+                name="visitorAbout" maxlength="600"
+                class="field-textarea"
+                placeholder="A short introduction"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button: Chat on WhatsApp -->
+            <button type="submit" class="whatsapp-submit-btn" id="btnWhatsappSubmit">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.82 14.08c-.25.7-1.44 1.34-2 1.42-.52.08-1.18.11-1.91-.12-.45-.14-1.02-.33-1.75-.65-3.08-1.33-5.09-4.44-5.24-4.65-.15-.2-1.25-1.66-1.25-3.17 0-1.51.79-2.25 1.07-2.56.28-.3.61-.38.82-.38.2 0 .41 0 .59.01.19.01.44-.07.69.53.25.61.86 2.1.94 2.25.08.15.13.33.02.53-.1.2-.15.33-.31.51-.15.18-.32.4-.46.53-.15.15-.31.31-.13.61.18.3.79 1.31 1.7 2.12 1.17 1.04 2.15 1.36 2.46 1.51.31.15.49.13.67-.08.18-.2.77-.9.98-1.21.2-.31.41-.26.69-.15.28.1 1.79.84 2.1 1 .31.15.51.23.59.36.08.13.08.75-.17 1.45z" />
+              </svg>
+              <span id="whatsappBtnLabel">Chat on WhatsApp</span>
+            </button>
+
+            <a href="#" target="_blank" rel="noopener noreferrer" class="match-fallback-link" id="matchFallbackLink">
+              Tap here if WhatsApp didn't open automatically
+            </a>
+          </form>
+
+          <button type="button" class="keep-viewing-btn" id="btnKeepViewing">
+            Keep viewing profile
+          </button>
+        </div>
+      </div>
+
+      <!-- Confetti Celebration Layer -->
+      <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+    </main>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       PROFILE CONFIGURATION (EDIT YOUR DETAILS HERE)
+       --------------------------------------------------------------------------
+       Update your WhatsApp number, bio, prompts, interests, and photo URLs below.
+       For whatsappNumber, use international format with country code and NO "+"
+       or spaces (example for India: "919876543210").
+       ========================================================================== */
+    const PROFILE_CONFIG = {
+        "whatsappNumber": "917278135942",
+        "name": "Sanjit",
+        "fullName": "Sanjit Chakrabarti",
+        "age": 30,
+        "verified": false,
+        "activeStatus": "Bengali roots",
+        "jobTitle": "Digital marketing founder",
+        "company": "GrowOnlineToday",
+        "education": "Computer science engineering at SRSIT, Bangalore",
+        "location": "Lives in Delhi, India",
+        "distance": "5′10″",
+        "lookingFor": "I’d like to meet a well-educated woman who’s open to settling in Delhi.",
+        "bio": "I run my own digital marketing firm from my home, in my own flat in Delhi. Away from work, I’m happiest lifting weights or heading for the mountains.",
+        "essentials": [
+          {
+            "icon": "💼",
+            "text": "I run GrowOnlineToday from my own flat in Delhi."
+          },
+          {
+            "icon": "🎓",
+            "text": "Computer science engineering at SRSIT, Bangalore"
+          },
+          {
+            "icon": "📍",
+            "text": "Delhi, India"
+          },
+          {
+            "icon": "🗣️",
+            "text": "Bengali, Hindi and English"
+          },
+          {
+            "icon": "🎂",
+            "text": "Born 3 June 1996"
+          },
+          {
+            "icon": "🏡",
+            "text": "Bengali Hindu"
+          }
+        ],
+        "interests": [
+          "Trekking",
+          "Weight training",
+          "Volunteering with YFS",
+          "Trips to the mountains or beach",
+          "Business and personal development books",
+          "Bengali, South Indian and Chinese food"
+        ],
+        "prompts": [
+          {
+            "question": "Work and education",
+            "answer": "I studied computer science engineering at SRSIT in Bangalore under Visvesvaraya Technological University (VTU). I went to Salwan Public School in Mayur Vihar and KCMS in Kalyani. After college, I started GrowOnlineToday, my digital marketing and business growth consultancy. My annual income is ₹15–20 lakh."
+          },
+          {
+            "question": "Outside work",
+            "answer": "I enjoy trekking and weight training. I sometimes volunteer with YFS, an NGO. I’m non-vegetarian and enjoy Bengali, South Indian, and Chinese food. I read business and personal development books, including Pitch Anything and Never Split the Difference. I usually dress casually and enjoy trips to the mountains or the beach."
+          },
+          {
+            "question": "Marriage and horoscope details",
+            "answer": "I’ve never been married. I was born in Sonipat, Haryana, at 4:32 p.m. My gotra is Kashyap, my rashi is Dhanu, my nakshatra is Moola, and my gon is Debari. A horoscope match is optional for me."
+          },
+          {
+            "question": "My family",
+            "answer": "I come from a nuclear Bengali family with roots in Naihati, West Bengal. My father has a corporate job in Malaysia, my mother is a homemaker, and my sister works in bioinformatics at a company in Bangalore. I live on my own in Delhi and speak Bengali, Hindi, and English."
+          }
+        ],
+        "photos": [
+          {
+            "url": "/photos/sanjit-in-the-hills.jpg",
+            "alt": "Sanjit overlooking the hills at sunset"
+          },
+          {
+            "url": "/photos/sanjit-at-night.jpg",
+            "alt": "Sanjit with city lights behind him at night"
+          },
+          {
+            "url": "/photos/sanjit-at-work.jpg",
+            "alt": "Sanjit working on his laptop at a café"
+          },
+          {
+            "url": "/photos/sanjit-at-celebration.jpg",
+            "alt": "Sanjit in a blue kurta at a celebration"
+          },
+          {
+            "url": "/photos/family-portrait.jpg?v=family-four",
+            "alt": "Sanjit with his family in a group portrait"
+          }
+        ],
+      // Playful floating toasts that cycle on repeated left swipes
+      leftSwipeToasts: [
+        "Oops, wrong way? Try again 😉",
+        "Plot twist: I'm the only profile on this app",
+        "Nice try! There's really only one right answer here",
+        "Still me! Go on, swipe right ✨",
+        "Left swipe is temporarily out of service. Try the green heart!",
+        "Persistence is attractive, right? Swipe right already 😄"
+      ]
+    };
+
+    /* ==========================================================================
+       APPLICATION STATE & DOM REFERENCES
+       ========================================================================== */
+    (function initApp() {
+      "use strict";
+
+      const state = {
+        photoIndex: 0,
+        leftSwipeCount: 0,
+        isDragging: false,
+        isAnimatingSwipe: false,
+        isSheetOpen: false,
+        isMatchOpen: false,
+        pointerId: null,
+        startX: 0,
+        startY: 0,
+        currentX: 0,
+        currentY: 0,
+        startTime: 0,
+        toastTimer: null
+      };
+
+      // DOM elements
+      const el = {
+        headerBrandName: document.getElementById("headerBrandName"),
+        toastPill: document.getElementById("toastPill"),
+        activeCard: document.getElementById("activeCard"),
+        backCard: document.getElementById("backCard"),
+        btnRewind: document.getElementById("btnRewind"),
+        btnNope: document.getElementById("btnNope"),
+        btnSuper: document.getElementById("btnSuper"),
+        btnLike: document.getElementById("btnLike"),
+        btnBoost: document.getElementById("btnBoost"),
+        profileSheet: document.getElementById("profileSheet"),
+        sheetScroll: document.getElementById("sheetScroll"),
+        sheetPhotoWrap: document.getElementById("sheetPhotoWrap"),
+        sheetStoryBars: document.getElementById("sheetStoryBars"),
+        sheetPhotoStage: document.getElementById("sheetPhotoStage"),
+        sheetBody: document.getElementById("sheetBody"),
+        btnCloseSheet: document.getElementById("btnCloseSheet"),
+        sheetBtnNope: document.getElementById("sheetBtnNope"),
+        sheetBtnSuper: document.getElementById("sheetBtnSuper"),
+        sheetBtnLike: document.getElementById("sheetBtnLike"),
+        matchOverlay: document.getElementById("matchOverlay"),
+        matchBadgeText: document.getElementById("matchBadgeText"),
+        matchAvatarImg: document.getElementById("matchAvatarImg"),
+        matchSubtitle: document.getElementById("matchSubtitle"),
+        matchForm: document.getElementById("matchForm"),
+        visitorName: document.getElementById("visitorName"),
+        visitorPhone: document.getElementById("visitorPhone"),
+        visitorAbout: document.getElementById("visitorAbout"),
+        errorName: document.getElementById("errorName"),
+        errorPhone: document.getElementById("errorPhone"),
+        whatsappBtnLabel: document.getElementById("whatsappBtnLabel"),
+        matchFallbackLink: document.getElementById("matchFallbackLink"),
+        btnKeepViewing: document.getElementById("btnKeepViewing"),
+        confettiLayer: document.getElementById("confettiLayer")
+      };
+
+      /* ========================================================================
+         SVG HELPERS
+         ======================================================================== */
+      const VERIFIED_BADGE_SVG = `
+        <svg class="verified-icon" viewBox="0 0 24 24" fill="none" aria-label="Verified Profile">
+          <path d="M12 2.2l2.35 1.54 2.8-.18 1.28 2.5 2.42 1.42-.38 2.78L22 12.7l-1.53 2.36.18 2.8-2.5 1.28-1.42 2.42-2.78-.38L11.5 22.7l-2.36-1.53-2.8.18-1.28-2.5-2.42-1.42.38-2.78L1.5 12.2l1.53-2.36-.18-2.8 2.5-1.28 1.42-2.42 2.78.38L12 2.2z" fill="#2088FF"/>
+          <path d="M8.7 12.4l2.15 2.15 4.65-4.8" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+
+      const ICON_BRIEFCASE = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2" />
+          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+        </svg>
+      `;
+
+      const ICON_HOME = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 10.5L12 3l9 7.5" />
+          <path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5" />
+        </svg>
+      `;
+
+      const ICON_PIN = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21s-6-5.33-6-10a6 6 0 1 1 12 0c0 4.67-6 10-6 10z" />
+          <circle cx="12" cy="11" r="2.2" />
+        </svg>
+      `;
+
+      const ICON_UP_ARROW = `
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 19V5" />
+          <path d="M5 12l7-7 7 7" />
+        </svg>
+      `;
+
+      /* ========================================================================
+         SAFE HTML ESCAPING
+         ======================================================================== */
+      function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = String(text ?? "");
+        return div.innerHTML;
+      }
+
+      function getInitials(fullName) {
+        return String(fullName || "SC")
+          .split(" ")
+          .filter(Boolean)
+          .slice(0, 2)
+          .map((part) => part[0].toUpperCase())
+          .join("");
+      }
+
+      /* ========================================================================
+         BUILD CARD HTML (USED FOR BOTH ACTIVE AND BACK STACK CARDS)
+         ======================================================================== */
+      function buildCardMarkup(isInteractive) {
+        const photos = PROFILE_CONFIG.photos;
+        const pillsPreview = PROFILE_CONFIG.interests.slice(0, 4);
+
+        const barsHtml = photos
+          .map((_, idx) => `<div class="story-bar ${idx === 0 ? "is-active" : ""}" data-bar-index="${idx}"></div>`)
+          .join("");
+
+        const photosHtml = photos
+          .map(
+            (photo, idx) => `
+              <img
+                class="card-photo ${idx === 0 ? "is-current" : ""}"
+                data-photo-index="${idx}"
+                src="${escapeHtml(photo.url)}"
+                alt="${escapeHtml(photo.alt || PROFILE_CONFIG.name)}"
+                draggable="false"
+                loading="${idx === 0 ? "eager" : "lazy"}"
+              />
+            `
+          )
+          .join("");
+
+        const stampsHtml = isInteractive
+          ? `
+            <div class="swipe-stamp stamp-like" data-stamp="like">LIKE</div>
+            <div class="swipe-stamp stamp-nope" data-stamp="nope">NOPE</div>
+            <div class="swipe-stamp stamp-super" data-stamp="super">SUPER LIKE</div>
+            <div class="photo-tap-feedback left" data-tap-feedback="left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </div>
+            <div class="photo-tap-feedback right" data-tap-feedback="right">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
+          `
+          : "";
+
+        return `
+          <div class="card-photo-stage">
+            <div class="card-photo-fallback" data-fallback>
+              <div class="fallback-monogram">${escapeHtml(getInitials(PROFILE_CONFIG.fullName))}</div>
+              <div style="font-size: 14px; font-weight: 700;">${escapeHtml(PROFILE_CONFIG.fullName)}</div>
+            </div>
+            ${photosHtml}
+          </div>
+
+          <div class="card-top-scrim"></div>
+          <div class="story-bars">${barsHtml}</div>
+          ${stampsHtml}
+
+          <div class="card-bottom-scrim">
+            <div class="card-info-row">
+              <div class="card-info-main">
+                <div class="active-badge">
+                  <span class="active-dot"></span>
+                  <span>${escapeHtml(PROFILE_CONFIG.activeStatus)}</span>
+                </div>
+
+                <div class="card-name-line">
+                  <span class="card-name">${escapeHtml(PROFILE_CONFIG.name)}</span>
+                  <span class="card-age">${escapeHtml(PROFILE_CONFIG.age)}</span>
+                  ${PROFILE_CONFIG.verified ? VERIFIED_BADGE_SVG : ""}
+                </div>
+
+                <div class="card-dynamic-info" data-dynamic-info>
+                  <div class="card-meta-list">
+                    <div class="card-meta-item">${ICON_BRIEFCASE}<span>${escapeHtml(PROFILE_CONFIG.jobTitle)}</span></div>
+                    <div class="card-meta-item">${ICON_HOME}<span>${escapeHtml(PROFILE_CONFIG.location)}</span></div>
+                    <div class="card-meta-item">${ICON_PIN}<span>${escapeHtml(PROFILE_CONFIG.distance)}</span></div>
+                  </div>
+                  <div class="card-pills">
+                    ${pillsPreview.map((tag) => `<span class="card-pill">${escapeHtml(tag)}</span>`).join("")}
+                  </div>
+                </div>
+              </div>
+
+              ${
+                isInteractive
+                  ? `<button type="button" class="info-open-btn" data-open-profile aria-label="View Full Profile">${ICON_UP_ARROW}</button>`
+                  : `<div class="info-open-btn" aria-hidden="true">${ICON_UP_ARROW}</div>`
+              }
+            </div>
+          </div>
+        `;
+      }
+
+      /* ========================================================================
+         RENDER CARDS & ATTACH FALLBACK IMAGE HANDLERS
+         ======================================================================== */
+      function attachImageFallbacks(container) {
+        const fallback = container.querySelector("[data-fallback]");
+        const imgs = container.querySelectorAll("img.card-photo");
+        imgs.forEach((img) => {
+          img.addEventListener("error", () => {
+            img.style.display = "none";
+            if (img.classList.contains("is-current") && fallback) {
+              fallback.classList.add("is-visible");
+            }
+          });
+          img.addEventListener("load", () => {
+            if (img.classList.contains("is-current") && fallback) {
+              fallback.classList.remove("is-visible");
+            }
+          });
+        });
+      }
+
+      function renderCards() {
+        el.headerBrandName.textContent = PROFILE_CONFIG.name.toLowerCase();
+        el.backCard.innerHTML = buildCardMarkup(false);
+        el.activeCard.innerHTML = buildCardMarkup(true);
+
+        attachImageFallbacks(el.backCard);
+        attachImageFallbacks(el.activeCard);
+
+        const openBtn = el.activeCard.querySelector("[data-open-profile]");
+        if (openBtn) {
+          openBtn.addEventListener("pointerdown", (evt) => evt.stopPropagation());
+          openBtn.addEventListener("click", (evt) => {
+            evt.stopPropagation();
+            openProfileSheet();
+          });
+        }
+      }
+
+      /* ========================================================================
+         PHOTO CAROUSEL & STORY PROGRESS SYNC (CARD + FULL PROFILE SHEET)
+         ======================================================================== */
+      function renderDynamicCardSlide(index) {
+        const slot = el.activeCard.querySelector("[data-dynamic-info]");
+        if (!slot) return;
+
+        // Photo 0: Summary details + Interest pills
+        if (index === 0) {
+          const pillsPreview = PROFILE_CONFIG.interests.slice(0, 4);
+          slot.innerHTML = `
+            <div class="card-meta-list">
+              <div class="card-meta-item">${ICON_BRIEFCASE}<span>${escapeHtml(PROFILE_CONFIG.jobTitle)}</span></div>
+              <div class="card-meta-item">${ICON_HOME}<span>${escapeHtml(PROFILE_CONFIG.location)}</span></div>
+              <div class="card-meta-item">${ICON_PIN}<span>${escapeHtml(PROFILE_CONFIG.distance)}</span></div>
+            </div>
+            <div class="card-pills">
+              ${pillsPreview.map((tag) => `<span class="card-pill">${escapeHtml(tag)}</span>`).join("")}
+            </div>
+          `;
+          return;
+        }
+
+        // Photo 1: Bio preview
+        if (index === 1) {
+          slot.innerHTML = `
+            <p class="card-caption-snippet">${escapeHtml(PROFILE_CONFIG.bio)}</p>
+          `;
+          return;
+        }
+
+        // Photo 2: Interests showcase
+        if (index === 2) {
+          slot.innerHTML = `
+            <div class="card-meta-item" style="margin-bottom: 8px; opacity: 0.85;"><span>Interests</span></div>
+            <div class="card-pills">
+              ${PROFILE_CONFIG.interests.slice(0, 6).map((tag) => `<span class="card-pill">${escapeHtml(tag)}</span>`).join("")}
+            </div>
+          `;
+          return;
+        }
+
+        // Photo 3+: Prompt preview
+        const prompt = PROFILE_CONFIG.prompts[0];
+        slot.innerHTML = `
+          <div class="card-meta-item" style="margin-bottom: 4px; color: #FF9EB5; font-weight: 700;">
+            <span>${escapeHtml(prompt ? prompt.question : "Looking for")}</span>
+          </div>
+          <p class="card-caption-snippet">${escapeHtml(prompt ? prompt.answer : PROFILE_CONFIG.lookingFor)}</p>
+        `;
+      }
+
+      function setPhotoIndex(newIndex) {
+        const total = PROFILE_CONFIG.photos.length;
+        if (total === 0) return;
+        state.photoIndex = ((newIndex % total) + total) % total;
+
+        // Sync Active Card & Full Profile Sheet photos + bars
+        [el.activeCard, el.sheetPhotoWrap].forEach((container) => {
+          if (!container) return;
+          const imgs = container.querySelectorAll("img.card-photo");
+          const bars = container.querySelectorAll(".story-bar");
+          const fallback = container.querySelector("[data-fallback]");
+
+          imgs.forEach((img, idx) => {
+            const isCurrent = idx === state.photoIndex;
+            img.classList.toggle("is-current", isCurrent);
+            if (isCurrent && fallback) {
+              fallback.classList.toggle("is-visible", img.style.display === "none");
+            }
+          });
+
+          bars.forEach((bar, idx) => {
+            bar.classList.toggle("is-active", idx === state.photoIndex);
+          });
+        });
+
+        renderDynamicCardSlide(state.photoIndex);
+      }
+
+      function flashTapArrow(side) {
+        const indicator = el.activeCard.querySelector(`[data-tap-feedback="${side}"]`);
+        if (!indicator) return;
+        indicator.classList.add("is-flash");
+        setTimeout(() => indicator.classList.remove("is-flash"), 210);
+      }
+
+      /* ========================================================================
+         BUILD FULL PROFILE SLIDE-UP SHEET CONTENT
+         ======================================================================== */
+      function renderProfileSheet() {
+        const photos = PROFILE_CONFIG.photos;
+
+        el.sheetStoryBars.innerHTML = photos
+          .map((_, idx) => `<div class="story-bar ${idx === 0 ? "is-active" : ""}"></div>`)
+          .join("");
+
+        el.sheetPhotoStage.innerHTML = `
+          <div class="card-photo-fallback" data-fallback>
+            <div class="fallback-monogram">${escapeHtml(getInitials(PROFILE_CONFIG.fullName))}</div>
+            <div style="font-size: 14px; font-weight: 700;">${escapeHtml(PROFILE_CONFIG.fullName)}</div>
+          </div>
+          ${photos
+            .map(
+              (photo, idx) => `
+                <img
+                  class="card-photo ${idx === 0 ? "is-current" : ""}"
+                  src="${escapeHtml(photo.url)}"
+                  alt="${escapeHtml(photo.alt || PROFILE_CONFIG.name)}"
+                  draggable="false"
+                />
+              `
+            )
+            .join("")}
+        `;
+        attachImageFallbacks(el.sheetPhotoWrap);
+
+        const essentialsHtml = PROFILE_CONFIG.essentials
+          .map(
+            (item) => `
+              <div class="essential-row">
+                <span class="essential-badge">${escapeHtml(item.icon)}</span>
+                <span>${escapeHtml(item.text)}</span>
+              </div>
+            `
+          )
+          .join("");
+
+        const interestsHtml = PROFILE_CONFIG.interests
+          .map((tag) => `<span class="sheet-interest-pill">${escapeHtml(tag)}</span>`)
+          .join("");
+
+        const promptsHtml = PROFILE_CONFIG.prompts
+          .map(
+            (p) => `
+              <div class="prompt-card">
+                <div class="prompt-q">${escapeHtml(p.question)}</div>
+                <div class="prompt-a">${escapeHtml(p.answer)}</div>
+              </div>
+            `
+          )
+          .join("");
+
+        el.sheetBody.innerHTML = `
+          <div class="sheet-header-block">
+            <div class="sheet-name-row">
+              <span class="sheet-name">${escapeHtml(PROFILE_CONFIG.name)}</span>
+              <span class="sheet-age">${escapeHtml(PROFILE_CONFIG.age)}</span>
+              ${PROFILE_CONFIG.verified ? VERIFIED_BADGE_SVG : ""}
+            </div>
+            <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: #16A34A;">
+              <span class="active-dot"></span>
+              <span>${escapeHtml(PROFILE_CONFIG.activeStatus)}</span>
+            </div>
+            <div class="sheet-quick-meta">
+              <div class="sheet-meta-line">${ICON_BRIEFCASE}<span>${escapeHtml(PROFILE_CONFIG.jobTitle)} at ${escapeHtml(PROFILE_CONFIG.company)}</span></div>
+              <div class="sheet-meta-line">${ICON_HOME}<span>${escapeHtml(PROFILE_CONFIG.location)}</span></div>
+              <div class="sheet-meta-line">${ICON_PIN}<span>${escapeHtml(PROFILE_CONFIG.distance)}</span></div>
+            </div>
+          </div>
+
+          <div class="sheet-section">
+            <div class="sheet-section-title">Looking For</div>
+            <div class="looking-for-card">
+              <span>💘</span>
+              <span>${escapeHtml(PROFILE_CONFIG.lookingFor)}</span>
+            </div>
+          </div>
+
+          <div class="sheet-section">
+            <div class="sheet-section-title">About Me</div>
+            <p class="sheet-bio-text">${escapeHtml(PROFILE_CONFIG.bio)}</p>
+          </div>
+
+          <div class="sheet-section">
+            <div class="sheet-section-title">Essentials</div>
+            <div class="essentials-grid">${essentialsHtml}</div>
+          </div>
+
+          <div class="sheet-section">
+            <div class="sheet-section-title">Interests</div>
+            <div class="sheet-interests">${interestsHtml}</div>
+          </div>
+
+          <div class="sheet-section">
+            <div class="sheet-section-title">Prompts</div>
+            ${promptsHtml}
+          </div>
+        `;
+      }
+
+      function openProfileSheet() {
+        state.isSheetOpen = true;
+        el.sheetScroll.scrollTop = 0;
+        el.profileSheet.classList.add("is-open");
+        el.profileSheet.setAttribute("aria-hidden", "false");
+      }
+
+      function closeProfileSheet() {
+        state.isSheetOpen = false;
+        el.profileSheet.classList.remove("is-open");
+        el.profileSheet.setAttribute("aria-hidden", "true");
+      }
+
+      /* ========================================================================
+         FLOATING TOAST HELPER
+         ======================================================================== */
+      function showToast(message) {
+        clearTimeout(state.toastTimer);
+        el.toastPill.textContent = message;
+        el.toastPill.classList.add("is-visible");
+        state.toastTimer = setTimeout(() => {
+          el.toastPill.classList.remove("is-visible");
+        }, 2800);
+      }
+
+      /* ========================================================================
+         DRAG & SWIPE PHYSICS (TOUCH + MOUSE POINTER EVENTS)
+         ======================================================================== */
+      function getStamps() {
+        return {
+          like: el.activeCard.querySelector('[data-stamp="like"]'),
+          nope: el.activeCard.querySelector('[data-stamp="nope"]'),
+          super: el.activeCard.querySelector('[data-stamp="super"]')
+        };
+      }
+
+      function updateDragVisuals(dx, dy) {
+        const rotateDeg = dx * 0.065;
+        el.activeCard.style.transform = `translate3d(${dx}px, ${dy * 0.32}px, 0) rotate(${rotateDeg}deg)`;
+
+        const stamps = getStamps();
+        const likeOpacity = Math.max(0, Math.min(1, (dx - 14) / 92));
+        const nopeOpacity = Math.max(0, Math.min(1, (-dx - 14) / 92));
+
+        if (stamps.like) stamps.like.style.opacity = likeOpacity.toFixed(3);
+        if (stamps.nope) stamps.nope.style.opacity = nopeOpacity.toFixed(3);
+        if (stamps.super) stamps.super.style.opacity = "0";
+
+        // Smoothly lift the back duplicate card forward as active card moves away
+        const progress = Math.min(1, Math.abs(dx) / 140);
+        const backScale = 0.955 + progress * 0.045;
+        const backY = 10 - progress * 10;
+        const backOpacity = 0.92 + progress * 0.08;
+        el.backCard.style.transition = "none";
+        el.backCard.style.transform = `scale(${backScale.toFixed(4)}) translateY(${backY.toFixed(2)}px)`;
+        el.backCard.style.opacity = backOpacity.toFixed(3);
+        el.backCard.style.filter = `brightness(${(0.92 + progress * 0.08).toFixed(3)})`;
+
+        // Highlight Nope / Like action button subtly during drag
+        el.btnLike.classList.toggle("is-highlighted", likeOpacity > 0.45);
+        el.btnNope.classList.toggle("is-highlighted", nopeOpacity > 0.45);
+      }
+
+      function resetCardPosition() {
+        el.activeCard.classList.add("is-animating");
+        el.activeCard.style.transform = "translate3d(0, 0, 0) rotate(0deg)";
+
+        const stamps = getStamps();
+        if (stamps.like) stamps.like.style.opacity = "0";
+        if (stamps.nope) stamps.nope.style.opacity = "0";
+        if (stamps.super) stamps.super.style.opacity = "0";
+
+        el.backCard.style.transition = "transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease";
+        el.backCard.style.transform = "scale(0.955) translateY(10px)";
+        el.backCard.style.opacity = "0.92";
+        el.backCard.style.filter = "brightness(0.92)";
+
+        el.btnLike.classList.remove("is-highlighted");
+        el.btnNope.classList.remove("is-highlighted");
+
+        setTimeout(() => {
+          el.activeCard.classList.remove("is-animating");
+        }, 380);
+      }
+
+      function restoreCardToDeck() {
+        el.activeCard.classList.remove("is-flying", "is-animating");
+        el.activeCard.style.transform = "translate3d(0, 0, 0) rotate(0deg)";
+        el.activeCard.style.opacity = "1";
+
+        const stamps = getStamps();
+        if (stamps.like) stamps.like.style.opacity = "0";
+        if (stamps.nope) stamps.nope.style.opacity = "0";
+        if (stamps.super) stamps.super.style.opacity = "0";
+
+        el.backCard.style.transition = "none";
+        el.backCard.style.transform = "scale(0.955) translateY(10px)";
+        el.backCard.style.opacity = "0.92";
+        el.backCard.style.filter = "brightness(0.92)";
+
+        el.btnLike.classList.remove("is-highlighted");
+        el.btnNope.classList.remove("is-highlighted");
+
+        // Trigger smooth pop-in so it feels like the next card promoted from deck
+        el.activeCard.classList.remove("is-entering");
+        void el.activeCard.offsetWidth;
+        el.activeCard.classList.add("is-entering");
+        setTimeout(() => el.activeCard.classList.remove("is-entering"), 360);
+      }
+
+      /**
+       * Executes a swipe left, swipe right, or super like animation.
+       * @param {"left"|"right"|"super"} direction
+       */
+      function triggerSwipe(direction) {
+        if (state.isAnimatingSwipe) return;
+        if (state.isSheetOpen) closeProfileSheet();
+
+        state.isAnimatingSwipe = true;
+        const stamps = getStamps();
+
+        if (direction === "left") {
+          if (stamps.nope) stamps.nope.style.opacity = "1";
+          if (stamps.like) stamps.like.style.opacity = "0";
+        } else if (direction === "super") {
+          if (stamps.super) stamps.super.style.opacity = "1";
+          if (stamps.like) stamps.like.style.opacity = "0";
+        } else {
+          if (stamps.like) stamps.like.style.opacity = "1";
+          if (stamps.nope) stamps.nope.style.opacity = "0";
+        }
+
+        // Lift back card to full scale smoothly
+        el.backCard.style.transition = "transform 0.32s ease, opacity 0.32s ease, filter 0.32s ease";
+        el.backCard.style.transform = "scale(1) translateY(0px)";
+        el.backCard.style.opacity = "1";
+        el.backCard.style.filter = "brightness(1)";
+
+        const flyOutX = direction === "left" ? -560 : direction === "right" ? 560 : 420;
+        const flyOutY = direction === "super" ? -240 : 48;
+        const flyRot = direction === "left" ? -26 : direction === "right" ? 26 : 14;
+
+        el.activeCard.classList.add("is-flying");
+        requestAnimationFrame(() => {
+          el.activeCard.style.transform = `translate3d(${flyOutX}px, ${flyOutY}px, 0) rotate(${flyRot}deg)`;
+          el.activeCard.style.opacity = "0";
+        });
+
+        setTimeout(() => {
+          if (direction === "left") {
+            // Left Swipe: Bring Sanjit's exact same profile right back onto the deck!
+            setPhotoIndex(0);
+            restoreCardToDeck();
+
+            const messages = PROFILE_CONFIG.leftSwipeToasts;
+            const toastText = messages[state.leftSwipeCount % messages.length];
+            state.leftSwipeCount += 1;
+            showToast(toastText);
+          } else {
+            // Right Swipe / Super Like: Open "It's a Match!" Modal
+            openMatchModal(direction === "super");
+          }
+
+          state.isAnimatingSwipe = false;
+        }, 340);
+      }
+
+      /* ========================================================================
+         POINTER EVENT HANDLERS ON ACTIVE CARD (SWIPE + PHOTO TAP)
+         ======================================================================== */
+      el.activeCard.addEventListener("pointerdown", (evt) => {
+        if (state.isAnimatingSwipe || state.isSheetOpen || state.isMatchOpen) return;
+        if (evt.button !== undefined && evt.button !== 0) return;
+        if (evt.target.closest("[data-open-profile]")) return;
+
+        state.isDragging = true;
+        state.pointerId = evt.pointerId;
+        state.startX = evt.clientX;
+        state.startY = evt.clientY;
+        state.currentX = 0;
+        state.currentY = 0;
+        state.startTime = performance.now();
+
+        el.activeCard.classList.remove("is-animating", "is-flying", "is-entering");
+        try {
+          el.activeCard.setPointerCapture(evt.pointerId);
+        } catch (_) {
+          // Ignore if pointer capture is unavailable
+        }
+      });
+
+      el.activeCard.addEventListener("pointermove", (evt) => {
+        if (!state.isDragging || evt.pointerId !== state.pointerId) return;
+
+        state.currentX = evt.clientX - state.startX;
+        state.currentY = evt.clientY - state.startY;
+
+        if (Math.abs(state.currentX) > 4 || Math.abs(state.currentY) > 4) {
+          updateDragVisuals(state.currentX, state.currentY);
+        }
+      });
+
+      function finishPointerDrag(evt) {
+        if (!state.isDragging || evt.pointerId !== state.pointerId) return;
+        state.isDragging = false;
+
+        try {
+          el.activeCard.releasePointerCapture(evt.pointerId);
+        } catch (_) {
+          // Ignore
+        }
+
+        const dx = state.currentX;
+        const dy = state.currentY;
+        const elapsed = performance.now() - state.startTime;
+        const distance = Math.hypot(dx, dy);
+
+        // Tap detection (left 40% = previous photo, right 60% = next photo)
+        if (distance < 10 && elapsed < 320) {
+          const rect = el.activeCard.getBoundingClientRect();
+          const relX = (evt.clientX - rect.left) / rect.width;
+          if (relX <= 0.4) {
+            setPhotoIndex(state.photoIndex - 1);
+            flashTapArrow("left");
+          } else {
+            setPhotoIndex(state.photoIndex + 1);
+            flashTapArrow("right");
+          }
+          resetCardPosition();
+          return;
+        }
+
+        // Swipe threshold or quick horizontal flick
+        const velocityX = Math.abs(dx) / Math.max(1, elapsed);
+        if (dx > 92 || (dx > 50 && velocityX > 0.55)) {
+          triggerSwipe("right");
+        } else if (dx < -92 || (dx < -50 && velocityX > 0.55)) {
+          triggerSwipe("left");
+        } else {
+          resetCardPosition();
+        }
+      }
+
+      el.activeCard.addEventListener("pointerup", finishPointerDrag);
+      el.activeCard.addEventListener("pointercancel", finishPointerDrag);
+
+      // Photo tap inside the Full Profile sheet header
+      el.sheetPhotoWrap.addEventListener("click", (evt) => {
+        const rect = el.sheetPhotoWrap.getBoundingClientRect();
+        const relX = (evt.clientX - rect.left) / rect.width;
+        if (relX <= 0.4) {
+          setPhotoIndex(state.photoIndex - 1);
+        } else {
+          setPhotoIndex(state.photoIndex + 1);
+        }
+      });
+
+      /* ========================================================================
+         "IT'S A MATCH!" MODAL, CONFETTI & WHATSAPP HANDOFF
+         ======================================================================== */
+      function spawnConfetti() {
+        const colors = ["#9C3769", "#AC4962", "#21D07C", "#F5B748", "#22B8CF", "#A655F7"];
+        el.confettiLayer.innerHTML = "";
+
+        for (let i = 0; i < 28; i++) {
+          const piece = document.createElement("span");
+          piece.className = "confetti-piece";
+          const size = 6 + Math.random() * 6;
+          piece.style.width = `${size}px`;
+          piece.style.height = `${size * 1.4}px`;
+          piece.style.left = `${8 + Math.random() * 84}%`;
+          piece.style.background = colors[i % colors.length];
+          piece.style.animationDelay = `${Math.random() * 0.25}s`;
+          piece.style.setProperty("--drift", `${(Math.random() - 0.5) * 140}px`);
+          piece.style.setProperty("--spin", `${(Math.random() - 0.5) * 720}deg`);
+          el.confettiLayer.appendChild(piece);
+        }
+
+        setTimeout(() => {
+          el.confettiLayer.innerHTML = "";
+        }, 1700);
+      }
+
+      function openMatchModal(isSuperLike) {
+        state.isMatchOpen = true;
+        el.matchBadgeText.textContent = isSuperLike ? "Super Like Match" : "You Swiped Right";
+        el.matchSubtitle.textContent = `${PROFILE_CONFIG.name} is waiting to hear from you. Drop your details to chat directly on WhatsApp.`;
+        el.matchAvatarImg.src = PROFILE_CONFIG.photos[0] ? PROFILE_CONFIG.photos[0].url : "";
+        el.matchAvatarImg.onerror = () => {
+          el.matchAvatarImg.style.display = "none";
+        };
+
+        // Reset validation & status states
+        clearFormErrors();
+        el.whatsappBtnLabel.textContent = "Chat on WhatsApp";
+        el.matchFallbackLink.classList.remove("is-visible");
+
+        el.matchOverlay.classList.add("is-open");
+        el.matchOverlay.setAttribute("aria-hidden", "false");
+        spawnConfetti();
+      }
+
+      function closeMatchModal() {
+        state.isMatchOpen = false;
+        el.matchOverlay.classList.remove("is-open");
+        el.matchOverlay.setAttribute("aria-hidden", "true");
+        restoreCardToDeck();
+      }
+
+      function clearFormErrors() {
+        el.visitorName.classList.remove("is-invalid");
+        el.visitorPhone.classList.remove("is-invalid");
+        el.errorName.classList.remove("is-visible");
+        el.errorPhone.classList.remove("is-visible");
+      }
+
+      el.visitorName.addEventListener("input", () => {
+        el.visitorName.classList.remove("is-invalid");
+        el.errorName.classList.remove("is-visible");
+      });
+
+      el.visitorPhone.addEventListener("input", () => {
+        el.visitorPhone.classList.remove("is-invalid");
+        el.errorPhone.classList.remove("is-visible");
+      });
+
+      const leadEndpoint = "https://script.google.com/macros/s/AKfycbzH91w4_HfCm_gmJBgCPZX9lueV-CBq-_mhGwlIFj9FntlyM_gpYE77R9Iaxcceu2G7AQ/exec";
+      const submitButton = el.matchForm.querySelector('button[type="submit"]');
+      let requestId;
+      el.matchForm.addEventListener("submit", async (evt) => {
+        evt.preventDefault();
+        if (submitButton.disabled) return;
+        clearFormErrors();
+
+        const nameVal = el.visitorName.value.trim();
+        const phoneVal = el.visitorPhone.value.trim();
+        const aboutVal = el.visitorAbout.value.trim();
+        const phoneDigits = phoneVal.replace(/\D/g, "");
+
+        let isValid = true;
+
+        if (!nameVal) {
+          el.visitorName.classList.add("is-invalid");
+          el.errorName.classList.add("is-visible");
+          isValid = false;
+        }
+
+        if (phoneDigits.length < 7 || !/^[+0-9 ()-]{7,25}$/.test(phoneVal)) {
+          el.visitorPhone.classList.add("is-invalid");
+          el.errorPhone.classList.add("is-visible");
+          isValid = false;
+        }
+
+        if (!isValid) {
+          if (!nameVal) {
+            el.visitorName.focus();
+          } else {
+            el.visitorPhone.focus();
+          }
+          return;
+        }
+
+        submitButton.disabled = true;
+        el.whatsappBtnLabel.textContent = "Saving your introduction…";
+        try {
+          requestId ||= crypto.randomUUID();
+          const body = new URLSearchParams({
+            source: "date-me", name: nameVal, phone: phoneVal, message: aboutVal,
+            requestId, consent: "yes"
+          });
+          const response = await fetch(leadEndpoint, {
+            method: "POST", body, credentials: "omit", signal: AbortSignal.timeout(45000)
+          });
+          const result = await response.json();
+          if (!response.ok || result.ok !== true || result.route !== "date-me") {
+            throw new Error("Introduction not confirmed");
+          }
+        } catch {
+          el.whatsappBtnLabel.textContent = "Try again";
+          el.matchSubtitle.textContent = "Your introduction couldn’t be confirmed. Please try again.";
+          submitButton.disabled = false;
+          return;
+        }
+        requestId = undefined;
+        submitButton.disabled = false;
+
+        // Build clean pre-filled WhatsApp message
+        const lines = [
+          `Hey ${PROFILE_CONFIG.name}! I just swiped right on your profile.`,
+          "",
+          `Name: ${nameVal}`,
+          `Phone: ${phoneVal}`
+        ];
+        if (aboutVal) {
+          lines.push(`About me: ${aboutVal}`);
+        }
+
+        const cleanTargetNumber = String(PROFILE_CONFIG.whatsappNumber).replace(/[^\d]/g, "");
+        const whatsappUrl = `https://wa.me/${cleanTargetNumber}?text=${encodeURIComponent(lines.join("\n"))}`;
+
+        // Update UI and redirect directly to WhatsApp
+        el.whatsappBtnLabel.textContent = "Opening WhatsApp...";
+        el.matchFallbackLink.href = whatsappUrl;
+        el.matchFallbackLink.classList.add("is-visible");
+
+        try {
+          window.location.href = whatsappUrl;
+        } catch (_) {
+          window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+        }
+      });
+
+      /* ========================================================================
+         BUTTON & KEYBOARD EVENT BINDINGS
+         ======================================================================== */
+      el.btnRewind.addEventListener("click", () => {
+        if (state.isAnimatingSwipe) return;
+        setPhotoIndex(0);
+        restoreCardToDeck();
+        showToast("Rewound! Back to the first photo 📸");
+      });
+
+      el.btnNope.addEventListener("click", () => triggerSwipe("left"));
+      el.btnLike.addEventListener("click", () => triggerSwipe("right"));
+      el.btnSuper.addEventListener("click", () => triggerSwipe("super"));
+
+      el.btnBoost.addEventListener("click", () => {
+        showToast("Profile boosted! Good thing I'm already #1 on your deck ⚡");
+      });
+
+      el.btnCloseSheet.addEventListener("click", closeProfileSheet);
+      el.sheetBtnNope.addEventListener("click", () => triggerSwipe("left"));
+      el.sheetBtnSuper.addEventListener("click", () => triggerSwipe("super"));
+      el.sheetBtnLike.addEventListener("click", () => triggerSwipe("right"));
+      el.btnKeepViewing.addEventListener("click", closeMatchModal);
+
+      // Keyboard shortcuts for smooth desktop testing
+      document.addEventListener("keydown", (evt) => {
+        if (state.isMatchOpen) {
+          if (evt.key === "Escape") closeMatchModal();
+          return;
+        }
+        if (state.isSheetOpen) {
+          if (evt.key === "Escape" || evt.key === "ArrowDown") closeProfileSheet();
+          return;
+        }
+        if (evt.key === "ArrowLeft") triggerSwipe("left");
+        if (evt.key === "ArrowRight") triggerSwipe("right");
+        if (evt.key === "ArrowUp") openProfileSheet();
+      });
+
+      /* ========================================================================
+         INITIALIZE APP
+         ======================================================================== */
+      try {
+        renderCards();
+        renderProfileSheet();
+        setPhotoIndex(0);
+      } catch (err) {
+        console.error("Failed to initialize profile app:", err);
+      }
+    })();
+  </script>
 </body>
 </html>
